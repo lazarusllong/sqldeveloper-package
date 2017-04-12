@@ -3,25 +3,25 @@ The Debian Package sqldeveloper-package
 
 In order to run Oracle SQL Developer you'll need a full working JDK. The
 versions that are compatible with SQL Developer are any JDK 1.5.0_06 or above
-or JDK 1.6 Update 3 or above. Specifically Oracle SQL Developer will not run
-with JDK 1.6 Update 1 or Update 2.
+or JDK 1.6.0_03 or above for SQL Developer versions up to 1.5.5. SQL Developer
+versions from 2.1 to 3.1 are compatible with JDK 1.6.0_11 or above and SQL
+Developer version 3.2 is compatible with JDK 1.6.0_04 or above.
 
-The free JDKs included in Debian, default-jdk and openjdk-6-jdk (both only for
-testing and unstable) are not fully compatible: the first isn't recognized as a
-SDK, and the second makes SQL Developer generate a wrong version warning
-whenever it starts.
+Note that Oracle SQL Developer is not compatible with JDK 1.7 (JDK7.0).
 
-There are several ways to obtain a compatible JDK:
+The free JDKs included in Debian, default-jdk and openjdk-6-jdk are not fully
+compatible: the first isn't recognized as a SDK, and the second makes SQL
+Developer generate a wrong version warning whenever it starts.
 
-- download and run the installer for the version you wish to install from Sun
-  <http://java.sun.com/javase/downloads/>
+There are a couple of ways to obtain a compatible JDK:
+
+- download and run the installer for the version you wish to install from
+  Oracle <http://www.oracle.com/technetwork/java/javase/downloads/>
 - install java-package (contrib/misc) and generate a Debian package from the
   above installer
-- install sun-java5-jdk (non-free/devel) or sun-java6-jdk (non-free/devel for
-  testing and unstable, backports/non-free/devel for stable) 
 
 After installing a compatible JDK simply launch SQL Developer through the
 graphical interface or by invoking /usr/bin/sqldeveloper and supply the path
 where the JDK was installed when prompted.
 
- -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 05 Apr 2009 20:22:22 +0100
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Tue, 13 Nov 2012 11:00:00 +0000
