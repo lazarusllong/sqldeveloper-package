@@ -73,7 +73,7 @@ MKTEMP_OPTS="-d"
 MV_OPTS="--strip-trailing-slashes"
 RM_OPTS="-rf"
 
-VERSION="0.2.5"
+VERSION="0.2.6"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -441,7 +441,9 @@ Architecture: all
 Depends: xterm | x-terminal-emulator
 EOF
 	) >"${DEBIAN_WORKDIR}/control"
-	if [ ${UPSTREAMVER%%.*} -ge 4 ]; then
+	if [ ${UPSTREAMVER%%.*} -ge 17 ]; then
+		printf "Recommends: java8-sdk" >>"${DEBIAN_WORKDIR}/control"
+	elif [ ${UPSTREAMVER%%.*} -ge 4 ]; then
 		printf "Recommends: java8-sdk | java7-sdk" >>"${DEBIAN_WORKDIR}/control"
 	else
 		printf "Recommends: java6-sdk" >>"${DEBIAN_WORKDIR}/control"

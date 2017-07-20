@@ -1,3 +1,9 @@
+sqldeveloper-package (0.2.6) unstable; urgency=low
+
+  * Support SQL Developer 17
+
+ -- Danilo Piazzalunga <danilopiazza@gmail.com>  Thu, 20 Jul 2017 09:36:08 +0200
+
 sqldeveloper-package (0.2.5) unstable; urgency=low
 
   * Bump Standards-Version to 3.9.8
