@@ -1,3 +1,11 @@
+sqldeveloper-package (0.2.5) unstable; urgency=low
+
+  * Bump Standards-Version to 3.9.8
+  * Switch to debhelper 10
+  * Fixed JDK dependencies for SQL Developer v4
+
+ -- Danilo Piazzalunga <danilopiazza@gmail.com>  Wed, 12 Apr 2017 23:41:46 +0200
+
 sqldeveloper-package (0.2.4) unstable; urgency=high
 
   * Addressed bugs for inclusion in Wheezy's freeze:

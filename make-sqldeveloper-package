@@ -3,7 +3,7 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2012-11-13)
+# (2017-04-12)
 
 # Copyright © 2009-2012 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 
@@ -73,7 +73,7 @@ MKTEMP_OPTS="-d"
 MV_OPTS="--strip-trailing-slashes"
 RM_OPTS="-rf"
 
-VERSION="0.2.4"
+VERSION="0.2.5"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -260,7 +260,7 @@ func_extract() {
 	${EXTRACT} ${EXTRACT_OPTS}
 }
 
-# Set the program version and modifies paths acordingly
+# Set the program version and modifies paths accordingly
 #
 func_upstreamversion() {
 	if [ ${#} -ne 1 ] ; then
@@ -432,8 +432,8 @@ Source: sqldeveloper
 Section: non-free/misc
 Priority: extra
 Maintainer: ${DEBFULLNAME} <${DEBEMAIL}>
-Build-Depends: debhelper (>= 7)
-Standards-Version: 3.8.1
+Build-Depends: debhelper (>= 10)
+Standards-Version: 3.9.8
 Homepage: http://www.oracle.com/technetwork/developer-tools/sql-developer/
 
 Package: sqldeveloper
@@ -441,8 +441,12 @@ Architecture: all
 Depends: xterm | x-terminal-emulator
 EOF
 	) >"${DEBIAN_WORKDIR}/control"
-	printf "Recommends: java6-sdk" >>"${DEBIAN_WORKDIR}/control"
-	[ ${UPSTREAMVER%%.*} -lt 2 ] && printf " | java5-sdk" >>"${DEBIAN_WORKDIR}/control"
+	if [ ${UPSTREAMVER%%.*} -ge 4 ]; then
+		printf "Recommends: java8-sdk | java7-sdk" >>"${DEBIAN_WORKDIR}/control"
+	else
+		printf "Recommends: java6-sdk" >>"${DEBIAN_WORKDIR}/control"
+		[ ${UPSTREAMVER%%.*} -lt 2 ] && printf " | java5-sdk" >>"${DEBIAN_WORKDIR}/control"
+	fi
 	printf "\n" >>"${DEBIAN_WORKDIR}/control"
 	(
 	${CAT} <<EOF
@@ -461,11 +465,11 @@ Description: Oracle SQL Developer
  If you use JDK1.6 (JDK6.0), the minimum you should use is JDK 1.6.0_03.
  Oracle SQL Developer versions 2.1 up to 3.1 require a minimum JDK of 1.6.0_11.
  Oracle SQL Developer version 3.2 requires a minimum JDK of 1.6.0_04.
- .
- Note that JDK1.7 (JDK7.0) is not supported by Oracle SQL Developer.
+ Oracle SQL Developer version 4.0 requires JDK 7 and above.
+ Starting with 4.1, Oracle SQL Developer requires at least JDK 8.
 EOF
 	) >>"${DEBIAN_WORKDIR}/control"
-	printf "7\n" >"${DEBIAN_WORKDIR}/compat"
+	printf "10\n" >"${DEBIAN_WORKDIR}/compat"
 	(
 	${CAT} <<EOF
 This package was debianized by ${DEBFULLNAME} <${DEBEMAIL}> on
@@ -733,7 +737,8 @@ or JDK 1.6.0_03 or above for SQL Developer versions up to 1.5.5. SQL Developer
 versions from 2.1 to 3.1 are compatible with JDK 1.6.0_11 or above and SQL
 Developer version 3.2 is compatible with JDK 1.6.0_04 or above.
 
-Note that Oracle SQL Developer is not compatible with JDK 1.7 (JDK7.0).
+Oracle SQL Developer version 4.0 requires JDK 7 and above. Starting with 4.1,
+Oracle SQL Developer requires at least JDK 8.
 
 The free JDKs included in Debian, default-jdk and openjdk-6-jdk are not fully
 compatible: the first isn't recognized as a SDK, and the second makes SQL
@@ -757,7 +762,7 @@ EOF
 	${CAT} <<EOF
 .\\" sqldeveloper.1
 .\\"
-.\\" (2012-11-13)
+.\\" (2017-04-12)
 .\\"
 .\\" Copyright © 2009-2012 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 .\\"
@@ -793,7 +798,7 @@ sqldeveloper \\- Oracle SQL Developer
 administer \\fIOracle\\fP databases.
 .PP
 The \\fIOracle SQL Developer\\fP program is governed by the copyright holder
-(\\fIOracle USA, Inc.\\fP), it is your responsibility to use it acordingly to
+(\\fIOracle USA, Inc.\\fP), it is your responsibility to use it accordingly to
 the OTN license, a copy of which is included in "\\fI/usr/share/doc/sqldeveloper\\fP".
 .\\"
 .SH OPTIONS
@@ -858,7 +863,7 @@ set -e
 
 # sqldeveloper
 
-# (2012-11-13)
+# (2017-04-12)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -977,32 +982,15 @@ EOF
 	(
 	${CAT} <<EOF
 #!/usr/bin/make -f
+%:
+	dh \$@
 
-# verbose mode
-#export DH_VERBOSE=1
-
-build:
-	dh build
-	touch \$@-stamp
-
-clean:
-	dh clean 
-
-install: build
-	dh install --until=dh_install
+override_dh_install:
+	dh_install
 	install -o 0 -g 0 -m 0755 -D debian/sqldeveloper.bash debian/sqldeveloper/usr/bin/sqldeveloper
-	dh install --remaining
 
-
-binary-indep: build install
-	dh binary-indep --before=dh_builddeb
+override_dh_builddeb:
 	dh_builddeb -i --destdir="${CURDIR}"
-
-binary-arch: build install
-
-binary: binary-indep binary-arch
-
-.PHONY: binary binary-arch binary-indep build clean install
 EOF
 	) >"${DEBIAN_WORKDIR}/rules"
 	${CHMOD} ${CHMOD_OPTS} "${DEBIAN_WORKDIR}/rules"

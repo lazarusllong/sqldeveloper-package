@@ -1,0 +1,5 @@
+/debian/debhelper-build-stamp
+/debian/files
+/debian/sqldeveloper-package.substvars
+/debian/sqldeveloper-package/
+
