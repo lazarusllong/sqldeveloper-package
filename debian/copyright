@@ -1,5 +1,5 @@
 This package was debianized by Lazarus Long <lazarus.long@bigfoot.com> on
-Sun, 01 Feb 2009 04:41:00 +0000.
+Tue, 13 Nov 2012 12:19:07 +0000.
 
 This package is not part of the Debian GNU/Linux distribution. It falls into
 category 2.2.2 of the Debian Policy Manual ("wrapper packages or other sorts
@@ -11,7 +11,7 @@ Upstream Author:
 
 Copyright:
 
-    Copyright © 2009 Lazarus Long <lazarus.long@bigfoot.com>
+    Copyright © 2009-2012 Lazarus Long <lazarus.long@bigfoot.com>
 
 License:
 
@@ -32,6 +32,6 @@ License:
 On Debian systems, the complete text of the GNU General Public License version
 3, can be found in `/usr/share/common-licenses/GPL-3'.
 
-The Debian packaging is © 2009, Lazarus Long <lazarus.long@bigfoot.com> and
-is licensed under the GPL either version 3 of the License, or (at your option)
-any later version, see above.
+The Debian packaging is © 2009-2012, Lazarus Long <lazarus.long@bigfoot.com>
+and is licensed under the GPL either version 3 of the License, or (at your
+option) any later version, see above.
