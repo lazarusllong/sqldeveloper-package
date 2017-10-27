@@ -9,12 +9,14 @@ Developer version 3.2 is compatible with JDK 1.6.0_04 or above.
 
 Note that Oracle SQL Developer is not compatible with JDK 1.7 (JDK7.0).
 
-The free JDKs included in Debian, default-jdk and openjdk-6-jdk are not fully
-compatible: the first isn't recognized as a SDK, and the second makes SQL
-Developer generate a wrong version warning whenever it starts.
+There are several ways to obtain a compatible JDK:
 
-There are a couple of ways to obtain a compatible JDK:
-
+- install default-jdk (java), making sure it depends of a version 6 JDK
+- install openjdk-6-jdk (java)
+- install the meta-package java-sdk, making sure that it installs a version 6
+  JDK as dependency
+- install the meta-package java6-sdk, making sure that it installs a version 6
+  JDK as dependency
 - download and run the installer for the version you wish to install from
   Oracle <http://www.oracle.com/technetwork/java/javase/downloads/>
 - install java-package (contrib/misc) and generate a Debian package from the
@@ -24,4 +26,4 @@ After installing a compatible JDK simply launch SQL Developer through the
 graphical interface or by invoking /usr/bin/sqldeveloper and supply the path
 where the JDK was installed when prompted.
 
- -- Lazarus Long <lazarus.long@bigfoot.com>  Tue, 13 Nov 2012 11:00:00 +0000
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 18 Nov 2012 06:13:29 +0000

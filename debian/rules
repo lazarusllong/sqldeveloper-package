@@ -3,21 +3,39 @@
 # verbose mode
 #export DH_VERBOSE=1
 
-build:
+override_dh_pysupport:
+
+build-arch:
+	dh build-arch
+
+build-indep:
+	dh build-indep
+
+build: build-arch build-indep
 	dh build
-	touch $@-stamp
+	touch \$@-stamp
 
 clean:
-	dh clean 
+	dh clean
 
-install: build
+install-indep: build
+	dh install-indep
+
+install-arch: build
+	dh install-arch
+
+install: install-arch install-indep
 	dh install
+	touch \$@-stamp
+
+binary-arch: build install
+	dh binary-arch
 
 binary-indep: build install
 	dh binary-indep
 
-binary-arch: build install
-
 binary: binary-indep binary-arch
+	dh binary
+	touch \$@-stamp
 
-.PHONY: binary binary-arch binary-indep build clean install
+.PHONY: build-arch build-indep build clean install-indep install-arch install binary-arch binary-indep binary

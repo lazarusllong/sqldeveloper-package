@@ -2,12 +2,13 @@ Source: sqldeveloper-package
 Section: contrib/misc
 Priority: optional
 Maintainer: Lazarus Long <lazarus.long@bigfoot.com>
-Build-Depends: debhelper (>= 7)
-Standards-Version: 3.8.1
+Build-Depends: debhelper (>= 7.0.50~)
+Standards-Version: 3.9.3
+Homepage: http://lazarus-corner-of-the-world.blogspot.com/2012/11/sqldeveloper-package.html
 
 Package: sqldeveloper-package
 Architecture: all
-Depends: ${misc:Depends}, bzip2, devscripts, fakeroot, file, unzip, tofrodos, imagemagick
+Depends: ${misc:Depends}, bzip2, devscripts, fakeroot, file, imagemagick, tofrodos, unzip
 Description: Oracle SQL Developer Debian package builder
  This utility makes it possible to build a Debian package of Oracle SQL
  Developer. The Oracle SQL Developer program is governed by the copyright
@@ -21,5 +22,5 @@ Description: Oracle SQL Developer Debian package builder
  from <http://www.oracle.com/technetwork/developer-tools/sql-developer>,
  identified as "Oracle SQL Developer for other platforms", "Oracle SQL
  Developer for Multiple Platforms" or "Oracle SQL Developer for Linux and Unix"
- (depending on which version you  are building), to create the Debian package
+ (depending on which version you are building), to create the Debian package
  from.

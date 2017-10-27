@@ -1,3 +1,26 @@
+sqldeveloper-package (0.3.0) unstable; urgency=low
+
+  * Addressed all reported issues and bugs:
+    - Included debhelper on the build dependency list (LP: #588458)
+      (Reported by Seth Rosenblum)
+    - Replaced dh options with overrides (LP: #998258)
+      (Reported by Christian Loos)
+  * Several small fixes and improvements:
+    - Fixed an unknown parameter passed to trap when in debug mode
+    - Strengthened trap exit handling
+    - (Re-)Corrected an unescaped '$' in OTN license text introduced in the
+      previous version
+  * New homepage for the package
+  * Updated documentation regarding compatible JDKs
+  * Solved Debian QA warnings:
+    - Converted source format to 3.0 (native)
+    - Added Homepage to debian/control
+  * Changed the source compression format to xz
+  * Verified compliancy with Standards-Version: 3.9.3
+  * Bumped version to reflect functionality
+
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Mon, 19 Nov 2012 18:58:16 +0000
+
 sqldeveloper-package (0.2.4) unstable; urgency=high
 
   * Addressed bugs for inclusion in Wheezy's freeze:
