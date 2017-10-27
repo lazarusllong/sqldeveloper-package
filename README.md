@@ -6,8 +6,7 @@ This utility makes it possible to build a _Debian_ package of _Oracle SQL Develo
 
 This utility will require you to download the **architecture independent** archive from [_\<http://www.oracle.com/technetwork/developer-tools/sql-developer\>_](http://www.oracle.com/technetwork/developer-tools/sql-developer), identified as "**_Oracle SQL Developer for other platforms_**", "**_Oracle SQL Developer for Multiple Platforms_**" or "**_Oracle SQL Developer for Linux and Unix_**" (depending on which version you are building), to create the _Debian_ package from.
 
-<hr width="40%">
-
+<hr width="40%"><br>
 
 <u>The <em>Debian Package</em> <strong><em>sqldeveloper-package</em></strong></u>
 
