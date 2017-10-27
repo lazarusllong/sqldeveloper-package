@@ -1,12 +1,3 @@
-sqldeveloper-package (0.2.3+nmu1) unstable; urgency=low
-
-  * Non-maintainer upload.
-  * Use "fromdos" in place of gone "dos2unix" for CRLF conversion
-    management. Remove no longer needed alternative dep on "sysutils",
-    which is gone too. Patch from Michael Musenbrock. (Closes: #568982)
-
- -- Stefano Zacchiroli <zack@debian.org>  Sun, 21 Feb 2010 18:28:56 +0100
-
 sqldeveloper-package (0.2.3) unstable; urgency=low
 
   * Fixed the command line options "-m|--maintainer" option wich was not
