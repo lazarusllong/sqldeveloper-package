@@ -20,6 +20,6 @@ There are several ways to obtain a **compatible** _JDK_:
 - install one of the required [_`openjdk-6-jdk`_](http://packages.debian.org/search?searchon=names&exact=1&suite=all&section=all&keywords=openjdk-6-jdk), [_`openjdk-7-jdk`_](http://packages.debian.org/search?searchon=names&exact=1&suite=all&section=all&keywords=openjdk-7-jdk) or [_`openjdk-8-jdk`_](http://packages.debian.org/search?searchon=names&exact=1&suite=all&section=all&keywords=openjdk-8-jdk) (java)
 - install the meta-package _`java-sdk`_, making sure that it installs the required _JDK_ version as dependency
 - install one of the meta-packages _`java6-sdk`_, _`java7-sdk`_ or _`java8-sdk`_, making sure that it installs the required _JDK_ version as dependency
-- download and run the installer for the version you wish to install from _Oracle_ [_&lt;http://www.oracle.com/technetwork/java/javase/downloads/&gt;_[(http://www.oracle.com/technetwork/java/javase/downloads/)
+- download and run the installer for the version you wish to install from _Oracle_ [_&lt;http://www.oracle.com/technetwork/java/javase/downloads/&gt;_](http://www.oracle.com/technetwork/java/javase/downloads/)
 - install [_`java-package`_](http://packages.debian.org/search?searchon=names&exact=1&suite=all&section=all&keywords=java-package) (contrib/misc) and generate a _Debian_ package from the above installer
 
