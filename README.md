@@ -9,5 +9,5 @@ This utility will require you to download the **architecture independent** archi
 <hr width="40%">
 
 
-_<u>The Debian Package </u>**<u>`sqldeveloper-package`</u>**_
+_<u>The Debian Package **`sqldeveloper-package`**</u>_
 
