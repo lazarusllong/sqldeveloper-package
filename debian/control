@@ -18,7 +18,8 @@ Description: Oracle SQL Developer Debian package builder
  in the created package, that you must agree on when downloading the source.
  .
  This utility will require you to download the architecture independent archive
- from <http://otn.oracle.com/software/products/sql/>, identified as "Oracle SQL
- Developer for other platforms", "Oracle SQL Developer for Multiple Platforms"
- or "Oracle SQL Developer for Linux and Unix" (depending on which version you
- are building), to create the Debian package from.
+ from <http://www.oracle.com/technetwork/developer-tools/sql-developer>,
+ identified as "Oracle SQL Developer for other platforms", "Oracle SQL
+ Developer for Multiple Platforms" or "Oracle SQL Developer for Linux and Unix"
+ (depending on which version you  are building), to create the Debian package
+ from.

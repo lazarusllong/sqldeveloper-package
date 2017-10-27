@@ -1,3 +1,20 @@
+sqldeveloper-package (0.2.4) unstable; urgency=high
+
+  * Addressed bugs for inclusion in Wheezy's freeze:
+    - Replaced dos2unix with tofrodos (LP: #560803,#626272) (Closes: #568982)
+      (Reported by Seth Rosenblum)
+    - Split grep for shell script (LP: #985810,#998610) (Closes: #692534)
+      (Reported by Bruno Medeiros and patch by Brad Powell)
+    - Download links updated (Closes: #618650)
+      (Reported by Sergio Fernandez)
+  * Fixed JDK dependencies for pre and post SQL Developer v2
+  * Updated documentation regarding above changes
+  * Updated OTN license information to current version
+  * Tested against v2.x and v3.x release families of SQL Developer
+  * Bumped version to reflect functionality
+
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Wed, 14 Nov 2012 11:05:12 +0000
+
 sqldeveloper-package (0.2.3+nmu1) unstable; urgency=low
 
   * Non-maintainer upload.
