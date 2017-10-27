@@ -29,5 +29,9 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
-###### <u>Version <strong>0.2.3</strong></u>
+<u>Version <strong>0.3.0</strong></u>
+
+<u>Version <strong>0.2.4</strong></u>
+
+<u>Version <strong>0.2.3</strong></u>
 
