@@ -23,11 +23,11 @@ There are several ways to obtain a **compatible** _JDK_:
 - download and run the installer for the version you wish to install from _Oracle_ [_&lt;http://www.oracle.com/technetwork/java/javase/downloads/&gt;_](http://www.oracle.com/technetwork/java/javase/downloads/)
 - install [_`java-package`_](http://packages.debian.org/search?searchon=names&exact=1&suite=all&section=all&keywords=java-package) (contrib/misc) and generate a _Debian_ package from the above installer
 
-After installing a **compatible** _JDK_ simply launch _SQL Developer through the [_graphical interface_](http://www.wikipedia.org/wiki/Desktop_Linux) or by invoking `/usr/bin/sqldeveloper` and supply the path where the _JDK_ was installed when prompted.
+After installing a **compatible** _JDK_ simply launch _SQL Developer_ through the [_graphical interface_](http://www.wikipedia.org/wiki/Desktop_Linux) or by invoking `/usr/bin/sqldeveloper` and supply the path where the _JDK_ was installed when prompted.
 
 <hr width="40%">
 
-### **Versions**
+### **Version History**
 
-#### <u>Version <strong>0.2.3</strong></u>
+####### <u>Version <strong>0.2.3</strong></u>
 
