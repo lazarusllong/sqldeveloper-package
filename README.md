@@ -31,23 +31,19 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 <a href="https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.3.0"><u>Version <strong>0.3.0</strong></u></a>
 - **changelog:**
-
 - **downloads:**
 
 <a href="https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.4"><u>Version <strong>0.2.4</strong></u></a>
 - **changelog:**
-
 - **downloads:**
 
 <a href="https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3+nmu1"><u>Version <strong>0.2.3+nmu1</strong></u></a>
 - **changelog:**
-
 - **downloads:**
 
 <a href="https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3"><u>Version <strong>0.2.3</strong></u></a>
 - **changelog:**
-  - Fixed the command line options `-m`|`--maintainer` option which was not getting the current login
-
+  - Fixed the command line options `-m`\|`--maintainer` option which was not getting the current login
 - **downloads:**
   - [**`sqldeveloper-package\_0.2.3\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3_all.deb) (_binary package_)
   - [`sqldeveloper-package\_0.2.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.dsc) (_source description file_)
@@ -55,8 +51,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 <u>Version <strong>0.2.2</strong></u>
 - **changelog:**
-  - Modified `make-sqldeveloper-package` to not default to the author name and email for the _Maintainer:_ field of the _Debian_ package as follows: if command line options `-m`|`--maintainer` and/or `-e`|`--email` are set then use these, else if `DEBFULLNAME` and/or `DEBEMAIL` environment variables are set then use these, else default the _Maintainer_ name to an empty string and/or generate the _Maintainer_ email from the current login and hostname
-
+  - Modified `make-sqldeveloper-package` to not default to the author name and email for the _Maintainer:_ field of the _Debian_ package as follows: if command line options `-m`\|`--maintainer` and/or `-e`\|`--email` are set then use these, else if `DEBFULLNAME` and/or `DEBEMAIL` environment variables are set then use these, else default the _Maintainer_ name to an empty string and/or generate the _Maintainer_ email from the current login and hostname
 - **downloads:**
   - _(unpublished)_
 
@@ -66,9 +61,8 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Rewrote the `sqldeveloper` wrapper script fixing all issues reported by `checkbashisms`
   - Modified the versioning of the resulting _Debian_ package to include the version of `make-sqldeveloper-package` used to build it
   - Changed the _Priority:_ from `optional` to `extra` for the resulting _Debian_ package
-  - Modified the `make-sqldeveloper-package` to honor the `DEBFULLNAME` and `DEBEMAIL` environment variables for the _Maintainer:_ field of the _Debian_ package as follows: if command line options `-m`|`--maintainer` and/or `-e`|`--email` are set then use these, else if `DEBFULLNAME` and/or `DEBEMAIL` environment variables are set then use these, else default to the author name and email
+  - Modified the `make-sqldeveloper-package` to honor the `DEBFULLNAME` and `DEBEMAIL` environment variables for the _Maintainer:_ field of the _Debian_ package as follows: if command line options `-m`\|`--maintainer` and/or `-e`\|`--email` are set then use these, else if `DEBFULLNAME` and/or `DEBEMAIL` environment variables are set then use these, else default to the author name and email
   - Changed all negative exit and return values to positive integers
-
 - **downloads:**
   - _(unpublished)_
 
@@ -79,7 +73,6 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Tested against latest release of _SQL Developer_
   - Verified compliancy with _Standards-Version:_ **3.8.1**
   - Bumped version to reflect functionality
-
 - **downloads:**
   - _(unpublished)_
 
@@ -89,7 +82,6 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
     - `desktop-entry-contains-encoding-key`
   - Fixed lintian pedantic:
     - `copyright-refers-to-symlink-license`
-
 - **downloads:**
   - _(unpublished)_
 
@@ -101,7 +93,6 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
     - `debhelper-but-no-misc-depends`
   - Corrected an unescaped '`$`' in _Oracle license_ text 
   - Silenced the build process of `make-sqldeveloper-package`
-
 - **downloads:**
   - _(unpublished)_
 
@@ -117,28 +108,24 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
     - `new-package-should-close-itp-bug` (Closes: [**#515233**](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=515233))
   - Modified the `sqldeveloper` wrapper script to pass command line parameters to the application
   - Added `-help` and `-version` switches to the `sqldeveloper` wrapper script
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.1.3</strong></u>
 - **changelog:**
   - Fixed a bug introduced with the replacement of `dh_*` scripts by `dh` calls where the wrapper script stopped being renamed
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.1.2</strong></u>
 - **changelog:**
   - Added the _Debian Developer's Reference_ recommendation to auto close the _ITP_ filled against _WNPP_ (Closes: [**#514124**](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=514124))
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.1.1</strong></u>
 - **changelog:**
   - Modified the install path from `/opt` to `/usr/share`
-
 - **downloads:**
   - _(unpublished)_
 
@@ -146,7 +133,6 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 - **changelog:**
   - Tested against every release of _SQL Developer_ published to date
   - Bumped version to reflect functionality
-
 - **downloads:**
   - _(unpublished)_
 
@@ -154,14 +140,12 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 - **changelog:**
   - Modified `make-sqldeveloper-package` to support version **_1.0.0_** of _SQL Developer_
   - Changed documentation to include instructions for earlier _SQL Developer_ releases
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.0.4</strong></u>
 - **changelog:**
   - Fixed the `make-sqldeveloper-package` script to remove unused targets from the `.PHONY` line in the temporary `debian/rules` file.
-
 - **downloads:**
   - _(unpublished)_
 
@@ -174,20 +158,17 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
     - `copyright-with-old-dh-make-debian-copyright`
   - Replaced `dh_*` scripts with `dh` calls
   - Modified `make-sqldeveloper-package` to apply the above packaging changes when generating the _sqldeveloper_ package
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.0.2</strong></u>
 - **changelog:**
   - Replaced `xterm` dependency to `x-terminal-emulator` on the `sqldeveloper` wrapper script.
-
 - **downloads:**
   - _(unpublished)_
 
 <u>Version <strong>0.0.1</strong></u>
 - **changelog:**
   - Initial Release.
-
 - **downloads:**
   - _(unpublished)_
