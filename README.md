@@ -41,7 +41,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 - **changelog:**
 - **downloads:**
 
-<a href="https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3"><u>Version <strong>0.2.3</strong></u></a>
+###### [_Version 0.2.3_](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3)
 - **changelog:**
   - Fixed the command line options `-m`\|`--maintainer` option which was not getting the current login
 - **downloads:**
@@ -49,7 +49,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - [`sqldeveloper-package\_0.2.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.dsc) (_source description file_)
   - [`sqldeveloper-package\_0.2.3.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.tar.gz) (_source code archive_)]
 
-<u>Version <strong>0.2.2</strong></u>
+###### Version 0.2.2
 - **changelog:**
   - Modified `make-sqldeveloper-package` to not default to the author name and email for the _Maintainer:_ field of the _Debian_ package as follows: if command line options `-m`\|`--maintainer` and/or `-e`\|`--email` are set then use these, else if `DEBFULLNAME` and/or `DEBEMAIL` environment variables are set then use these, else default the _Maintainer_ name to an empty string and/or generate the _Maintainer_ email from the current login and hostname
 - **downloads:**
