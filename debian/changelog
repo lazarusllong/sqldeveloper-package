@@ -1,3 +1,17 @@
+sqldeveloper-package (0.4.1) unstable; urgency=high
+
+  * Fixed a flaw in the added logic to remove a stale JVM path from
+    configuration, the way the path is stored has changed from v4.x
+    onward (Closes: #693798)
+    (Reported by Steven Post)
+  * Several small fixes and improvements:
+    - Fixed the JDK requirements for SQL Developer v4.0
+    - Added image thumbnails databases to the list of cruft to remove
+  * Fixed lintian warning windows-thumbnail-database-in-package
+  * (Re-)Tested against v3.x release family of SQL Developer
+
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 29 Oct 2017 21:38:19 +0000
+
 sqldeveloper-package (0.4.0) unstable; urgency=high
 
   * Addressed all correctable issues and bugs:
@@ -5,7 +19,7 @@ sqldeveloper-package (0.4.0) unstable; urgency=high
       package build (Closes: #868673)
       (Reported and patch by Phil Morrell)
     - Added logic to wrapper script to remove a stale JVM path from
-      configuration (Closes: #693798)
+      configuration
       (Reported by Steven Post)
   * Fixed lintian warnings:
     - ancient-standards-version

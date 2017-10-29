@@ -3,7 +3,7 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2017-10-28)
+# (2017-10-29)
 
 # Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 
@@ -75,7 +75,7 @@ MV_OPTS="--strip-trailing-slashes"
 RM_OPTS="-rf"
 RMDIR_OPTS="-p --ignore-fail-on-non-empty"
 
-VERSION="0.4.0"
+VERSION="0.4.1"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -393,7 +393,10 @@ func_cleanup() {
 
 	# Binaries from other OSs and Zip archives
 	${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "PE32\+ executable|PE32 executable|MS-DOS batch|Zip archive data" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
-	${FIND} "${OPTDIR}" ! -type d \( -name "*.bat" \) |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
+	${FIND} "${OPTDIR}" ! -type d \( -iname "*.bat" \) |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
+
+	# Image thumbnails and caches
+	${FIND} "${OPTDIR}" ! -type d \( -iname "Thumbs.db" \) |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
 
 	# Configuration files from other OSs
 	${RM} ${RM_OPTS} "${OPTDIR}/sqldeveloper/bin/sqldeveloper-Darwin.conf"
@@ -483,14 +486,13 @@ EOF
 	) >"${DEBIAN_WORKDIR}/control"
 	printf "Recommends: " >>"${DEBIAN_WORKDIR}/control"
 	[ ${UPSTREAMVERMAJ} -gt 3 ] && {
-		printf "java8-sdk" >>"${DEBIAN_WORKDIR}/control"
 		[ ${UPSTREAMVERMAJ} -gt 4 ] && {
-			printf " | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
+			printf "java8-sdk | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
 		} || {
 			[ ${UPSTREAMVERMIN} -gt 0 ] && {
-				printf " | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
+				printf "java8-sdk | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
 			} || {
-				printf " | java7-sdk" >>"${DEBIAN_WORKDIR}/control"
+				printf "java7-sdk" >>"${DEBIAN_WORKDIR}/control"
 			}
 		}
 	} || {
@@ -884,7 +886,7 @@ EOF
 	${CAT} <<EOF
 .\\" sqldeveloper.1
 .\\"
-.\\" (2017-10-28)
+.\\" (2017-10-29)
 .\\"
 .\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 .\\"
@@ -906,7 +908,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER 1 2017-10-28 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER 1 2017-10-29 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 sqldeveloper \\- Oracle SQL Developer
@@ -985,7 +987,7 @@ set -e
 
 # sqldeveloper
 
-# (2017-10-28)
+# (2017-10-29)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -1014,10 +1016,10 @@ CUT="cut"
 GREP="grep"
 MKDIR="mkdir"
 RM="rm"
+SED="sed"
 TR="tr"
 XTERM="x-terminal-emulator"
 
-CUT_OPTS="-d = -f 2"
 GREP_OPTS="-E"
 MKDIR_OPTS="-p"
 RM_OPTS="-f"
@@ -1026,28 +1028,33 @@ XTERM_OPTS="-e"
 
 INVOCATION="\$(\${BASENAME} "\${0}")"
 SQLDEVHOME="\${HOME}/.sqldeveloper"
-JDKPATH="\${SQLDEVHOME}/jdk"
 SQLDEVDIR="/${INSTDIR}/sqldeveloper"
 SQLDEVELOPER="\${SQLDEVDIR}/sqldeveloper.sh"
 
 func_version() {
+	CUT_OPTS_FUNC_VER="-d = -f 2"
+
 	VERSIONFILE="\${SQLDEVDIR}/sqldeveloper/bin/version.properties"
 	VERSION="0.0.0"
 
 	if [ -e "\${VERSIONFILE}" ] ; then
-		VERSION="\$(\${GREP} \${GREP_OPTS} "VER_FULL" "\${VERSIONFILE}" |\${CUT} \${CUT_OPTS})"
+		VERSION="\$(\${GREP} \${GREP_OPTS} "VER_FULL" "\${VERSIONFILE}" |\${CUT} \${CUT_OPTS_FUNC_VER})"
 	else
 		VERSIONFILE="\${SQLDEVDIR}/jdev/bin/version.properties"
 
 		if [ -e "\${VERSIONFILE}" ] ; then
-			VERSION="\$(\${GREP} \${GREP_OPTS} "VER_FULL" "\${VERSIONFILE}" |\${CUT} \${CUT_OPTS})"
+			VERSION="\$(\${GREP} \${GREP_OPTS} "VER_FULL" "\${VERSIONFILE}" |\${CUT} \${CUT_OPTS_FUNC_VER})"
 		else
 			printf "\${INVOCATION} - func_version(): File \\"%s\\" not found, returning...\\n" "\${VERSIONFILE}"
 			return 1
 		fi
 	fi
 
-	printf "\\nOracle SQL Developer: Release %s\\n" "\${VERSION}"
+	VERSIONMAJ="\${VERSION%%.*}"
+	VERSIONMIN="\${VERSION#*.}"
+	VERSIONREV="\${VERSIONMIN#*.}"
+	VERSIONMIN="\${VERSIONMIN%%.*}"
+	VERSIONREV="\${VERSIONREV%%.*}"
 }
 
 func_help() {
@@ -1063,7 +1070,7 @@ func_parseopts() {
 				exit 0
 			;;
 			-version|--version)
-				func_version
+				printf "\\nOracle SQL Developer: Release %s\\n" "\${VERSION}"
 				exit 0
 			;;
 		esac
@@ -1072,17 +1079,46 @@ func_parseopts() {
 	done
 }
 
-if ! [ -f "\${JDKPATH}" ] ; then
-	\${MKDIR} \${MKDIR_OPTS} "\${SQLDEVHOME}"
-	RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
-elif ! [ -x "\$(\${CAT} \${JDKPATH})/bin/javac" ] ; then
-	\${RM} \${RM_OPTS} "\${JDKPATH}"
-	RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
-else
-	RUN="\${SQLDEVELOPER}"
-fi
 
+func_checkjdkpath() {
+		CUT_OPTS_FUNC_CHKJDK="-f 2-"
+		SED_OPTS_FUNC_CHKJDK="-i -e"
+
+	if [ \${VERSIONMAJ} -lt 4 ] ; then
+		JDKPATH="\${SQLDEVHOME}/jdk"
+	else
+		if [ \${VERSIONMAJ} -eq 17  -a \${VERSIONMIN} -lt 3 ] ; then
+			JDKPATH="\${SQLDEVHOME}/4.2.0/product.conf"
+		else
+			JDKPATH="\${SQLDEVHOME}/\${VERSIONMAJ}.\${VERSIONMIN}.\${VERSIONREV}/product.conf"
+		fi
+	fi
+
+	if ! [ -f "\${JDKPATH}" ] ; then
+		\${MKDIR} \${MKDIR_OPTS} "\${SQLDEVHOME}"
+		RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
+	else
+		if [ \${VERSIONMAJ} -lt 4 ]  ; then 
+			if ! [ -x "\$(\${CAT} \${JDKPATH})/bin/javac" ] ; then
+				\${RM} \${RM_OPTS} "\${JDKPATH}"
+				RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
+			else
+				RUN="\${SQLDEVELOPER}"
+			fi
+		else
+			if ! [ -x "\$(\${GREP} \${GREP_OPTS} "^SetJavaHome" \${JDKPATH} |\${CUT} \${CUT_OPTS_FUNC_CHKJDK} -d\\  )/bin/javac" ] ; then
+				\${SED} \${SED_OPTS_FUNC_CHKJDK} 's/^SetJavaHome.*$//g' "\${JDKPATH}"
+				RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
+			else
+				RUN="\${SQLDEVELOPER}"
+			fi
+		fi
+	fi
+}
+
+func_version
 func_parseopts \${@}
+func_checkjdkpath
 \${RUN} \${@}
 
 # EOF sqldeveloper
