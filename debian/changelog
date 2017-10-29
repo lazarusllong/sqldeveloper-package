@@ -1,3 +1,38 @@
+sqldeveloper-package (0.4.0) unstable; urgency=high
+
+  * Addressed all correctable issues and bugs:
+    - Separated target from options and disabled check for original file in
+      package build (Closes: #868673)
+      (Reported and patch by Phil Morrell)
+    - Added logic to wrapper script to remove a stale JVM path from
+      configuration (Closes: #693798)
+      (Reported by Steven Post)
+  * Fixed lintian warnings:
+    - ancient-standards-version
+    - package-uses-deprecated-debhelper-compat-version
+    - spelling-error-in-description
+  * Modified make-sqldeveloper-package to fix lintian warnings and errors:
+    - command-in-menu-file-and-desktop-file
+    - desktop-mime-but-no-exec-code
+    - extra-license-file
+    - new-package-should-close-itp-bug
+    - priority-extra-is-replaced-by-priority-optional
+  * Several small fixes and improvements:
+    - Simplified debian/rules since dh_strip_nondeterminism was heavilly
+      impacting build time by make-sqldeveloper-package
+    - Added 64-bit foreign DLLs to the list of cruft to remove
+    - Moved demo files to documentation structure
+    - Introduced lintian overrides for warnings out of our control:
+      - classpath-contains-relative-path
+      - codeless-jar
+  * New homepage for the package
+  * Updated documentation regarding compatible JDKs
+  * Tested against v4.x and v17.x release families of SQL Developer
+  * Verified compliancy with Standards-Version: 4.1.1
+  * Bumped version to reflect functionality
+
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 29 Oct 2017 14:41:27 +0000
+
 sqldeveloper-package (0.3.0) unstable; urgency=low
 
   * Addressed all reported issues and bugs:

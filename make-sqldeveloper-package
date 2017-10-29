@@ -3,9 +3,9 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2012-11-13)
+# (2017-10-28)
 
-# Copyright © 2009-2012 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
+# Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -57,6 +57,7 @@ MKDIR="mkdir"
 MKTEMP="mktemp"
 MV="mv"
 RM="rm"
+RMDIR="rmdir"
 SED="sed"
 TAR="tar"
 TOUCH="touch"
@@ -72,8 +73,9 @@ MKDIR_OPTS="-p"
 MKTEMP_OPTS="-d"
 MV_OPTS="--strip-trailing-slashes"
 RM_OPTS="-rf"
+RMDIR_OPTS="-p --ignore-fail-on-non-empty"
 
-VERSION="0.3.0"
+VERSION="0.4.0"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -287,7 +289,7 @@ func_extract() {
 	${EXTRACT} ${EXTRACT_OPTS}
 }
 
-# Set the program version and modifies paths acordingly
+# Set the program version and modifies paths accordingly
 #
 func_upstreamversion() {
 	if [ ${#} -ne 1 ] ; then
@@ -318,6 +320,12 @@ func_upstreamversion() {
 			fi
 		fi
 	fi
+
+	UPSTREAMVERMAJ="${UPSTREAMVER%%.*}"
+	UPSTREAMVERMIN="${UPSTREAMVER#*.}"
+	UPSTREAMVERREV="${UPSTREAMVERMIN#*.}"
+	UPSTREAMVERMIN="${UPSTREAMVERMIN%%.*}"
+	UPSTREAMVERREV="${UPSTREAMVERREV%%.*}"
 
 	if [ -z "${LOCALVER}" ] ; then
 		LOCALVER=1
@@ -384,7 +392,7 @@ func_cleanup() {
 	#
 
 	# Binaries from other OSs and Zip archives
-	${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "PE32 executable|MS-DOS batch|Zip archive data" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
+	${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "PE32\+ executable|PE32 executable|MS-DOS batch|Zip archive data" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
 	${FIND} "${OPTDIR}" ! -type d \( -name "*.bat" \) |${XARGS} ${XARGS_OPTS} ${RM} ${RM_OPTS}
 
 	# Configuration files from other OSs
@@ -399,17 +407,22 @@ func_cleanup() {
 	# Fixes
 	#
 
-	# Remove spaces from shebang line
-	for f in $(${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "ASCII" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${SED} ${SED_OPTS} 's/[[:space:]]/#/g') ; do
-		${SED} ${SED_OPTS_INLINE} 's%^ #!%#!%1' "$(printf "${f}\n" |${SED} ${SED_OPTS} 's/#/ /g')"
+	# Remove spaces and fix path from shebang line
+	for f in $(${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "ASCII|Perl script" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${SED} ${SED_OPTS} 's/[[:space:]]/#/g') ; do
+		${SED} ${SED_OPTS_INLINE} 's%^ #!%#!%1;s%^#!/usr/bin%#!/bin%1;s%^#!/usr/local%#!/usr%1' "$(printf "${f}\n" |${SED} ${SED_OPTS} 's/#/ /g')"
 	done
 
 	# Set executable bit
-	${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "shell script" | ${GREP} ${GREP_OPTS} "text executable" |${CUT} ${CUT_OPTS_FUNC_CLEAN} |${XARGS} ${XARGS_OPTS} ${CHMOD} ${CHMOD_OPTS}
+	${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "text executable" |${GREP} ${GREP_OPTS} "Perl script|shell script|/bin/ksh"|${CUT} ${CUT_OPTS_FUNC_CLEAN} |${XARGS} ${XARGS_OPTS} ${CHMOD} ${CHMOD_OPTS}
 
 	# Documentation
 	#
 	${MKDIR} ${MKDIR_OPTS} "${WORKDIR}/usr/share/doc/sqldeveloper"
+
+	# Demo files
+	if [ -d "${OPTDIR}/sqldeveloper/demo" ] ; then
+		${MV} ${MV_OPTS} "${OPTDIR}/sqldeveloper/demo" "${WORKDIR}/usr/share/doc/sqldeveloper"
+	fi
 
 	# Theme files
 	if [ -d "${OPTDIR}/ide/themes" ] ; then
@@ -447,7 +460,7 @@ func_debianize() {
 	${CAT} <<EOF
 sqldeveloper (${UPSTREAMVER}+${VERSION}-${LOCALVER}) unstable; urgency=low
 
-  * Built with ${INVOCATION} ${VERSION}
+  * Built with ${INVOCATION} ${VERSION} (Closes: #${ITP})
 
  -- ${DEBFULLNAME} <${DEBEMAIL}>  $(${DATE} ${DATE_OPTS})
 
@@ -457,10 +470,10 @@ EOF
 	${CAT} <<EOF
 Source: sqldeveloper
 Section: non-free/misc
-Priority: extra
+Priority: optional
 Maintainer: ${DEBFULLNAME} <${DEBEMAIL}>
-Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.3
+Build-Depends: debhelper (>= 10.2.5)
+Standards-Version: 4.1.1
 Homepage: ${HOMEPAGE}
 
 Package: sqldeveloper
@@ -468,8 +481,22 @@ Architecture: all
 Depends: xterm | x-terminal-emulator
 EOF
 	) >"${DEBIAN_WORKDIR}/control"
-	printf "Recommends: java6-sdk" >>"${DEBIAN_WORKDIR}/control"
-	[ ${UPSTREAMVER%%.*} -lt 2 ] && printf " | java5-sdk" >>"${DEBIAN_WORKDIR}/control"
+	printf "Recommends: " >>"${DEBIAN_WORKDIR}/control"
+	[ ${UPSTREAMVERMAJ} -gt 3 ] && {
+		printf "java8-sdk" >>"${DEBIAN_WORKDIR}/control"
+		[ ${UPSTREAMVERMAJ} -gt 4 ] && {
+			printf " | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
+		} || {
+			[ ${UPSTREAMVERMIN} -gt 0 ] && {
+				printf " | java9-sdk" >>"${DEBIAN_WORKDIR}/control"
+			} || {
+				printf " | java7-sdk" >>"${DEBIAN_WORKDIR}/control"
+			}
+		}
+	} || {
+		printf "java6-sdk" >>"${DEBIAN_WORKDIR}/control"
+		[ ${UPSTREAMVERMAJ} -lt 2 ] && printf " | java5-sdk" >>"${DEBIAN_WORKDIR}/control"
+	}
 	printf "\n" >>"${DEBIAN_WORKDIR}/control"
 	(
 	${CAT} <<EOF
@@ -484,15 +511,19 @@ Description: Oracle SQL Developer
  Oracle SQL Developer is a Java application and requires a full Java SDK.  The
  minimum JDK you should use is as follows:
  .
- Oracle SQL Developer versions up to 1.5.5 require a minimum JDK of 1.5.0_06.
- If you use JDK1.6 (JDK6.0), the minimum you should use is JDK 1.6.0_03.
+ Oracle SQL Developer versions up to 1.5.5 require a minimum JDK of 1.5.0_06,
+ or if you use JDK 1.6 (JDK6.0), the minimum you should use is JDK 1.6.0_03.
  Oracle SQL Developer versions 2.1 up to 3.1 require a minimum JDK of 1.6.0_11.
  Oracle SQL Developer version 3.2 requires a minimum JDK of 1.6.0_04.
+ Oracle SQL Developer version 4.0 requires a minimum JDK of 1.7 (JDK7.0).
+ Oracle SQL Developer versions 4.1 up to 17.3  require a minimum  JDK  of  1.8
+ (JDK8.0).
  .
- Note that JDK1.7 (JDK7.0) is not supported by Oracle SQL Developer.
+ Note that JDK1.7 (JDK7.0) or newer is not supported  by  Oracle SQL Developer
+ prior to version 4.0.
 EOF
 	) >>"${DEBIAN_WORKDIR}/control"
-	printf "7\n" >"${DEBIAN_WORKDIR}/compat"
+	printf "10\n" >"${DEBIAN_WORKDIR}/compat"
 	(
 	${CAT} <<EOF
 This package was debianized by ${DEBFULLNAME} <${DEBEMAIL}> on
@@ -507,7 +538,7 @@ problematic.").
 
 Copyright:
 
-    Copyright © 2009-2012 Oracle USA, Inc.
+    Copyright © 2009-2017 Oracle USA, Inc.
 
 License:
 
@@ -700,27 +731,91 @@ License:
     Oracle may contact you to ask if you had a satisfactory experience
     installing and using this OTN software download.
 
-The Debian packaging is © 2009-2012, Lazarus Long <lazarus.long@bigfoot.com>
+The Debian packaging is © 2009-2017, Lazarus Long <lazarus.long@bigfoot.com>
 and is licensed under the GPL either version 3 of the License, or (at your
 option) any later version, see \`/usr/share/common-licenses/GPL-3'.
 EOF
 	) >"${DEBIAN_WORKDIR}/copyright"
 
-	if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
+	if [ -f "${1}/${INSTDIR}/sqldeveloper/sqldeveloper/extensions/oracle.sqldeveloper.onsd/LICENSE.txt" ] ; then
 		(
 		${CAT} <<EOF
+
+There are specific license terms regarding the Oracle NoSQL Database Client:
+
+Oracle NoSQL Database Client, is licensed under the Apache
+2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
+
+		${RM} ${RM_OPTS} "${1}/${INSTDIR}/sqldeveloper/sqldeveloper/extensions/oracle.sqldeveloper.onsd/LICENSE.txt"
+	fi
+
+	if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license" ] ; then
+		(
+		${CAT} <<EOF
+
+There are specific license terms regarding the GitClientAdapter:
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
+
+		for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license/* ; do
+			LICFILE="$(${BASENAME} ${l})"
+
+			printf "\n%s:\n" "${LICFILE}" >>"${DEBIAN_WORKDIR}/copyright"
+			${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
+		done
+
+		${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license/*
+		${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license"
+	fi
+
+
+	if ! [ -d "${1}/${INSTDIR}/sqldeveloper/svnkit/licenses" ] ; then
+		if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
+			(
+			${CAT} <<EOF
 
 There are specific license terms regarding the SVNClientAdapter:
 
 SVNClientAdapter, with the following exceptions, is licensed under the Apache
 2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
 EOF
+			) >>"${DEBIAN_WORKDIR}/copyright"
+
+			for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/* ; do
+				LICFILE="$(${BASENAME} ${l})"
+
+				if [ "${LICFILE}" = "license.txt" ] ; then
+					continue
+				fi
+
+				printf "\n%s:\n" "${LICFILE}" >>"${DEBIAN_WORKDIR}/copyright"
+				${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
+			done
+
+			${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/*
+			${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
+		fi
+	else
+		(
+		${CAT} <<EOF
+
+There are specific license terms regarding the TMate SVNKit library:
+
+SQLJet is dual licensed under the following exceptions when distributed
+bundled with the TMate SVNKit library and under the GNU General Public License
+2 terms available at \`/usr/share/common-licenses/GPL-2'.
+
+SVNClientAdapter, with the following exceptions, is licensed under the Apache
+2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
+EOF
 		) >>"${DEBIAN_WORKDIR}/copyright"
 
-		for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/* ; do
+		for l in ${1}/${INSTDIR}/sqldeveloper/svnkit/licenses/* ; do
 			LICFILE="$(${BASENAME} ${l})"
 
-			if [ "${LICFILE}" = "license.txt" ] ; then
+			if [ "${LICFILE}" = "license.txt" -o  "${LICFILE}" = "SQLJET-LICENSE" ] ; then
 				continue
 			fi
 
@@ -728,7 +823,13 @@ EOF
 			${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
 		done
 
-		${RM} ${RM_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
+		${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/svnkit/licenses/*
+		${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/svnkit/licenses"
+
+		if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
+			${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/*
+			${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
+		fi
 	fi
 
 	(
@@ -741,16 +842,6 @@ EOF
 	printf "debian/sqldeveloper.1\n" >"${DEBIAN_WORKDIR}/manpages"
 	(
 	${CAT} <<EOF
-?package(sqldeveloper):\\
- needs="X11"\\
- section="Applications/Data Management"\\
- title="Oracle SQL Developer"\\
- command="/usr/bin/sqldeveloper"\\
- icon="/usr/share/pixmaps/sqldeveloper.xpm"
-EOF
-	) >"${DEBIAN_WORKDIR}/menu"
-	(
-	${CAT} <<EOF
 sqldeveloper for Debian
 -----------------------
 
@@ -758,18 +849,25 @@ In order to run Oracle SQL Developer you'll need a full working JDK. The
 versions that are compatible with SQL Developer are any JDK 1.5.0_06 or above
 or JDK 1.6.0_03 or above for SQL Developer versions up to 1.5.5. SQL Developer
 versions from 2.1 to 3.1 are compatible with JDK 1.6.0_11 or above and SQL
-Developer version 3.2 is compatible with JDK 1.6.0_04 or above.
+Developer version 3.2 is compatible with JDK 1.6.0_04 or above. SQL Developer
+version 4.0 is compatible with JDK 1.7 (JDK7.0) series or newer and SQL
+Developer versions from 4.1 to 17.3 are compatible with JDK 1.8 (JDK8.0)
+series or newer.
 
-Note that Oracle SQL Developer is not compatible with JDK 1.7 (JDK7.0).
+Note that Oracle SQL Developer prior to version 4.0 is not compatible with
+JDK 1.7 (JDK7.0) or newer.
 
 There are several ways to obtain a compatible JDK:
 
-- install default-jdk (java), making sure it depends of a version 6 JDK
-- install openjdk-6-jdk (java)
-- install the meta-package java-sdk, making sure that it installs a version 6
-  JDK as dependency
-- install the meta-package java6-sdk, making sure that it installs a version 6
-  JDK as dependency
+- install default-jdk (java), making sure it depends on the required JDK
+  version
+- install one of the required openjdk-6-jdk, openjdk-7-jdk, openjdk-8-jdk or
+  openjdk-9-jdk (java)
+- install the meta-package java-sdk, making sure that it installs the required
+  JDK version as dependency
+- install one of the meta-packages java6-sdk, java7-sdk, java8-sdk or
+  java9-sdk, making sure that it installs the required JDK version as
+  dependency
 - download and run the installer for the version you wish to install from
   Oracle <http://www.oracle.com/technetwork/java/javase/downloads/>
 - install java-package (contrib/misc) and generate a Debian package from the
@@ -786,9 +884,9 @@ EOF
 	${CAT} <<EOF
 .\\" sqldeveloper.1
 .\\"
-.\\" (2012-11-13)
+.\\" (2017-10-28)
 .\\"
-.\\" Copyright © 2009-2012 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
+.\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 .\\"
 .\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\"
 .\\"  This program is free software: you can redistribute it and/or modify  .\\"
@@ -808,7 +906,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER 1 2012-11-13 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER 1 2017-10-28 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 sqldeveloper \\- Oracle SQL Developer
@@ -822,7 +920,7 @@ sqldeveloper \\- Oracle SQL Developer
 administer \\fIOracle\\fP databases.
 .PP
 The \\fIOracle SQL Developer\\fP program is governed by the copyright holder
-(\\fIOracle USA, Inc.\\fP), it is your responsibility to use it acordingly to
+(\\fIOracle USA, Inc.\\fP), it is your responsibility to use it accordingly to
 the OTN license, a copy of which is included in "\\fI/usr/share/doc/sqldeveloper\\fP".
 .\\"
 .SH OPTIONS
@@ -887,7 +985,7 @@ set -e
 
 # sqldeveloper
 
-# (2012-11-13)
+# (2017-10-28)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -906,7 +1004,7 @@ set -e
 
 # Launcher for Oracle SQL Developer
 
-# Copyright: © 2009-2012 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
+# Copyright: © 2009-2017 Lazarus Long <lazarus (dot) long (at) bigfoot (dot) com>
 
 PATH="/usr/bin:/bin:/${INSTDIR}/sqldeveloper:/${INSTDIR}/sqldeveloper/sqldeveloper/bin:/${INSTDIR}/sqldeveloper/jdev/bin"
 
@@ -915,12 +1013,14 @@ CAT="cat"
 CUT="cut"
 GREP="grep"
 MKDIR="mkdir"
+RM="rm"
 TR="tr"
 XTERM="x-terminal-emulator"
 
 CUT_OPTS="-d = -f 2"
 GREP_OPTS="-E"
 MKDIR_OPTS="-p"
+RM_OPTS="-f"
 TR_OPTS="[[:upper:]] [[:lower:]]"
 XTERM_OPTS="-e"
 
@@ -976,6 +1076,7 @@ if ! [ -f "\${JDKPATH}" ] ; then
 	\${MKDIR} \${MKDIR_OPTS} "\${SQLDEVHOME}"
 	RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
 elif ! [ -x "\$(\${CAT} \${JDKPATH})/bin/javac" ] ; then
+	\${RM} \${RM_OPTS} "\${JDKPATH}"
 	RUN="\${XTERM} \${XTERM_OPTS} \${SQLDEVELOPER}"
 else
 	RUN="\${SQLDEVELOPER}"
@@ -995,7 +1096,6 @@ Name=SQL Developer
 Exec=/usr/bin/sqldeveloper
 Icon=/usr/share/pixmaps/sqldeveloper.xpm
 Type=Application
-MimeType=application/x-sqldeveloper
 Comment=Oracle SQL Developer
 X-KDE-StartupNotify=true
 Terminal=false
@@ -1005,54 +1105,28 @@ EOF
 	${CONVERT} ${CONVERT_OPTS} "${1}/${INSTDIR}/sqldeveloper/icon.png" "${DEBIAN_WORKDIR}/sqldeveloper.xpm"
 	(
 	${CAT} <<EOF
+codeless-jar
+classpath-contains-relative-path
+EOF
+	) >"${DEBIAN_WORKDIR}/sqldeveloper.lintian-overrides"
+	(
+	${CAT} <<EOF
 #!/usr/bin/make -f
 
 # verbose mode
 #export DH_VERBOSE=1
 
+override_dh_builddeb:
+	dh_builddeb -i --destdir="${CURDIR}"
+
 override_dh_install:
 	dh_install
 	install -o 0 -g 0 -m 0755 -D debian/sqldeveloper.bash debian/sqldeveloper/usr/bin/sqldeveloper
 
-override_dh_builddeb:
-	dh_builddeb -i --destdir="${CURDIR}"
+override_dh_strip_nondeterminism:
 
-override_dh_pysupport:
-
-build-arch:
-	dh build-arch
-
-build-indep:
-	dh build-indep
-
-build: build-arch build-indep
-	dh build
-	touch \$@-stamp
-
-clean:
-	dh clean
-
-install-indep: build
-	dh install-indep
-
-install-arch: build
-	dh install-arch
-
-install: install-arch install-indep
-	dh install
-	touch \$@-stamp
-
-binary-arch: build install
-	dh binary-arch
-
-binary-indep: build install
-	dh binary-indep
-
-binary: binary-indep binary-arch
-	dh binary
-	touch \$@-stamp
-
-.PHONY: build-arch build-indep build clean install-indep install-arch install binary-arch binary-indep binary
+%:
+	dh \$@
 EOF
 	) >"${DEBIAN_WORKDIR}/rules"
 	${CHMOD} ${CHMOD_OPTS} "${DEBIAN_WORKDIR}/rules"
@@ -1071,7 +1145,7 @@ func_builddeb() {
 		return 1
 	fi
 
-	DEBUILD_OPTS="--no-lintian binary"
+	DEBUILD_OPTS="--no-lintian --no-tgz-check -- binary"
 
 	if [ -n "${ROOTCMD}" ] ; then
 		DEBUILD_OPTS="--rootcmd=${ROOTCMD} ${DEBUILD_OPTS}"

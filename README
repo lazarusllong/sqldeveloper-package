@@ -5,18 +5,25 @@ In order to run Oracle SQL Developer you'll need a full working JDK. The
 versions that are compatible with SQL Developer are any JDK 1.5.0_06 or above
 or JDK 1.6.0_03 or above for SQL Developer versions up to 1.5.5. SQL Developer
 versions from 2.1 to 3.1 are compatible with JDK 1.6.0_11 or above and SQL
-Developer version 3.2 is compatible with JDK 1.6.0_04 or above.
+Developer version 3.2 is compatible with JDK 1.6.0_04 or above. SQL Developer
+version 4.0 is compatible with JDK 1.7 (JDK7.0) series or newer and SQL
+Developer versions from 4.1 to 17.3 are compatible with JDK 1.8 (JDK8.0)
+series or newer.
 
-Note that Oracle SQL Developer is not compatible with JDK 1.7 (JDK7.0).
+Note that Oracle SQL Developer prior to version 4.0 is not compatible with
+JDK 1.7 (JDK7.0) or newer.
 
 There are several ways to obtain a compatible JDK:
 
-- install default-jdk (java), making sure it depends of a version 6 JDK
-- install openjdk-6-jdk (java)
-- install the meta-package java-sdk, making sure that it installs a version 6
-  JDK as dependency
-- install the meta-package java6-sdk, making sure that it installs a version 6
-  JDK as dependency
+- install default-jdk (java), making sure it depends on the required JDK
+  version
+- install one of the required openjdk-6-jdk, openjdk-7-jdk, openjdk-8-jdk or
+  openjdk-9-jdk (java)
+- install the meta-package java-sdk, making sure that it installs the required
+  JDK version as dependency
+- install one of the meta-packages java6-sdk, java7-sdk, java8-sdk or
+  java9-sdk, making sure that it installs the required JDK version as
+  dependency
 - download and run the installer for the version you wish to install from
   Oracle <http://www.oracle.com/technetwork/java/javase/downloads/>
 - install java-package (contrib/misc) and generate a Debian package from the
@@ -26,4 +33,4 @@ After installing a compatible JDK simply launch SQL Developer through the
 graphical interface or by invoking /usr/bin/sqldeveloper and supply the path
 where the JDK was installed when prompted.
 
- -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 18 Nov 2012 06:13:29 +0000
+ -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 29 Oct 2017 14:41:27 +0000

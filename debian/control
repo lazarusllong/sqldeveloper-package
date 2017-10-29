@@ -2,9 +2,11 @@ Source: sqldeveloper-package
 Section: contrib/misc
 Priority: optional
 Maintainer: Lazarus Long <lazarus.long@bigfoot.com>
-Build-Depends: debhelper (>= 7.0.50~)
-Standards-Version: 3.9.3
-Homepage: http://lazarus-corner-of-the-world.blogspot.com/2012/11/sqldeveloper-package.html
+Build-Depends: debhelper (>= 10.2.5)
+Standards-Version: 4.1.1
+Vcs-Git: https://github.com/lazarusllong/sqldeveloper-package.git
+Vcs-Browser: https://github.com/lazarusllong/sqldeveloper-package.git
+Homepage: https://lazarusllong.github.io/sqldeveloper-package/
 
 Package: sqldeveloper-package
 Architecture: all
@@ -15,8 +17,9 @@ Description: Oracle SQL Developer Debian package builder
  holder (Oracle USA, Inc.), so you may be limited as to what you can do with
  the resulting package (i.e. no redistribution, etc). This utility will simply
  help you create the Debian package, it is your responsibility to use the
- resulting package acordingly with the OTN license, a copy of which is included
- in the created package, that you must agree on when downloading the source.
+ resulting package accordingly with the OTN license, a copy of which is
+ included in the created package, that you must agree on when downloading the
+ source.
  .
  This utility will require you to download the architecture independent archive
  from <http://www.oracle.com/technetwork/developer-tools/sql-developer>,
