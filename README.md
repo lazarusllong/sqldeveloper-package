@@ -33,7 +33,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Addressed all correctable issues and bugs:
     - Separated target from options and disabled check for original file in package build (Closes: [**#868673**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=868673))
       (Reported and patch by [_Phil Morrell_](mailto:debian@emorrp1.name))
-    - Added logic to wrapper script to remove a stale _JVM_ path from configuration (Closes: [**#693798**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=693798))
+    - Added logic to wrapper script to remove a stale _JVM_ path from configuration
       (Reported by [_Steven Post_](mailto:steven.post@archimiddle.com))
   - Fixed _`lintian`_ warnings:
     - `ancient-standards-version`
@@ -58,10 +58,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Verified compliancy with Standards-Version: **4.1.1**
   - Bumped version to reflect functionality
 - **downloads:**
-  - [**`sqldeveloper-package_0.4.0_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0_all.deb) (_binary package_)
-  - [`sqldeveloper-package_0.4.0.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0.dsc) (_source description file_)
-  - [`sqldeveloper-package_0.4.0.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0.tar.xz) (_source code archive_)
-  - [`v0.3.0_v0.4.0.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/v0.3.0_v0.4.0.debdiff) (_Debian diff from previous version_)
+  - _(unpublished)_
 
 ##### [Version 0.3.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.3.0):
 - **changelog:**
