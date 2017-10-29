@@ -86,7 +86,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 - **changelog:**
   - Fixed the command line options `-m`\|`--maintainer` option which was not getting the current login
 - **downloads:**
-  - [**`sqldeveloper-package_0.2.3\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3_all.deb) (_binary package_)
+  - [**`sqldeveloper-package_0.2.3_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3_all.deb) (_binary package_)
   - [`sqldeveloper-package_0.2.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.dsc) (_source description file_)
   - [`sqldeveloper-package_0.2.3.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.tar.gz) (_source code archive_)
 
