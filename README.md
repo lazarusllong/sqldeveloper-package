@@ -28,6 +28,41 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
+##### [Version 0.4.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.0):
+- **changelog:**
+    Addressed all correctable issues and bugs:
+    - Separated target from options and disabled check for original file in package build (Closes: [**#868673**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=868673))
+      (Reported and patch by [_Phil Morrell_](mailto:debian@emorrp1.name))
+    - Added logic to wrapper script to remove a stale _JVM_ path from configuration (Closes: [**#693798**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=693798))
+      (Reported by [_Steven Post_](mailto:steven.post@archimiddle.com))
+  - Fixed _`lintian`_ warnings:
+    - `ancient-standards-version`
+    - `package-uses-deprecated-debhelper-compat-version`
+    - `spelling-error-in-description`
+  - Modified `make-sqldeveloper-package` to fix _`lintian`_ warnings and errors:
+    - `command-in-menu-file-and-desktop-file`
+    - `desktop-mime-but-no-exec-code`
+    - `extra-license-file`
+    - `new-package-should-close-itp-bug`
+    - `priority-extra-is-replaced-by-priority-optional`
+  - Several small fixes and improvements:
+    - Simplified _`debian/rules`_ since `dh_strip_nondeterminism` was heavilly impacting build time by `make-sqldeveloper-package`
+    - Added _64-bit foreign DLLs_ to the list of cruft to remove
+    - Moved demo files to documentation structure
+    - Introduced _`lintian`_ overrides for warnings out of our control:
+      - `classpath-contains-relative-path`
+      - `codeless-jar`
+  - [**New _homepage_**](https://lazarusllong.github.io/sqldeveloper-package/) for the package
+  - Updated documentation regarding **compatible** _JDKs_
+  - Tested against _v4.x_ and _v17.x_ release families of _SQL Developer_
+  - Verified compliancy with Standards-Version: **4.1.1**
+  - Bumped version to reflect functionality
+- **downloads:**
+  - [**`sqldeveloper-package_0.4.0_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.4.0.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.4.0.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/sqldeveloper-package_0.4.0.tar.xz) (_source code archive_)
+  - [`v0.3.0_v0.4.0.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.0/v0.3.0_v0.4.0.debdiff) (_Debian diff from previous version_)
+
 ##### [Version 0.3.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.3.0):
 - **changelog:**
   - Addressed all reported issues and bugs:
@@ -119,18 +154,18 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ##### _Version 0.1.6_:
 - **changelog:**
-  - Modified `make-sqldeveloper-package` to generate a cleaner package, fixing the following lintian info warning:
+  - Modified `make-sqldeveloper-package` to generate a cleaner package, fixing the following _`lintian`_ info warning:
     - `desktop-entry-contains-encoding-key`
-  - Fixed lintian pedantic:
+  - Fixed _`lintian`_ pedantic:
     - `copyright-refers-to-symlink-license`
 - **downloads:**
   - _(unpublished)_
 
 ##### _Version 0.1.5_:
 - **changelog:**
-  - Modified `make-sqldeveloper-package` to generate a clean package, fixing the following lintian warning:
+  - Modified `make-sqldeveloper-package` to generate a clean package, fixing the following _`lintian`_ warning:
     - `copyright-refers-to-versionless-license-file`
-  - Fixed lintian warning:
+  - Fixed _`lintian`_ warning:
     - `debhelper-but-no-misc-depends`
   - Corrected an unescaped '`$`' in _Oracle license_ text 
   - Silenced the build process of `make-sqldeveloper-package`
@@ -139,7 +174,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ##### _Version 0.1.4_:
 - **changelog:**
-  - Modified `make-sqldeveloper-package` to generate a clean package, fixing the following lintian warnings and errors:
+  - Modified `make-sqldeveloper-package` to generate a clean package, fixing the following _`lintian`_ warnings and errors:
     - `binary-without-manpage`
     - `extra-license-file`
     - `package-contains-empty-directory`
@@ -194,7 +229,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 - **changelog:**
   - Filled _ITP_ against _WNPP_ ([**#514124**](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=514124))
   - Moved `make-sqldeveloper-package.1` and `README` to the top level directory
-  - Fixed lintian warnings:
+  - Fixed _`lintian`_ warnings:
     - `dh-clean-k-is-deprecated`
     - `copyright-with-old-dh-make-debian-copyright`
   - Replaced `dh_*` scripts with `dh` calls
