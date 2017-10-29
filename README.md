@@ -48,9 +48,9 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Verified compliancy with Standards-Version: **3.9.3**
   - Bumped version to reflect functionality
 - **downloads:**
-  - [**`sqldeveloper-package\_0.3.0\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0_all.deb) (_binary package_)
-  - [`sqldeveloper-package\_0.3.0.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0.dsc) (_source description file_)
-  - [`sqldeveloper-package\_0.3.0.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0.tar.gz) (_source code archive_)
+  - [**`sqldeveloper-package_0.3.0_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.3.0.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.3.0.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/sqldeveloper-package_0.3.0.tar.xz) (_source code archive_)
   - [`v0.2.4_v0.3.0.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.3.0/v0.2.4_v0.3.0.debdiff) (_Debian diff from previous version_)
 
 ##### [Version 0.2.4](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.4):
@@ -68,9 +68,9 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Tested against v2.x and v3.x release families of _SQL Developer_
   - Bumped version to reflect functionality
 - **downloads:**
-  - [**`sqldeveloper-package\_0.2.4\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4_all.deb) (_binary package_)
-  - [`sqldeveloper-package\_0.2.4.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4.dsc) (_source description file_)
-  - [`sqldeveloper-package\_0.2.4.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4.tar.gz) (_source code archive_)
+  - [**`sqldeveloper-package_0.2.4_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.2.4.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.2.4.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/sqldeveloper-package_0.2.4.tar.gz) (_source code archive_)
   - [`v0.2.3_v0.2.4.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.4/v0.2.3_v0.2.4.debdiff) (_Debian diff from previous version_)
 
 ##### [Version 0.2.3+nmu1](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3+nmu1):
@@ -78,17 +78,17 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Non-maintainer upload.
   - Use `fromdos` in place of gone `dos2unix` for CRLF conversion management. Remove no longer needed alternative dep on `sysutils`, which is gone too. Patch from Michael Musenbrock. (Closes: [**#568982**](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568982))
 - **downloads:**
-  - [**`sqldeveloper-package\_0.2.3+nmu1\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1_all.deb) (_binary package_)
-  - [`sqldeveloper-package\_0.2.3+nmu1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.dsc) (_source description file_)
-  - [`sqldeveloper-package\_0.2.3+nmu1.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.tar.gz) (_source code archive_)
+  - [**`sqldeveloper-package_0.2.3+nmu1_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.2.3+nmu1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.2.3+nmu1.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.tar.gz) (_source code archive_)
 
 ##### [Version 0.2.3](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3):
 - **changelog:**
   - Fixed the command line options `-m`\|`--maintainer` option which was not getting the current login
 - **downloads:**
-  - [**`sqldeveloper-package\_0.2.3\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3_all.deb) (_binary package_)
-  - [`sqldeveloper-package\_0.2.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.dsc) (_source description file_)
-  - [`sqldeveloper-package\_0.2.3.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.tar.gz) (_source code archive_)
+  - [**`sqldeveloper-package_0.2.3\_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.2.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.2.3.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3/sqldeveloper-package_0.2.3.tar.gz) (_source code archive_)
 
 ##### _Version 0.2.2_:
 - **changelog:**
