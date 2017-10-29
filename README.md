@@ -28,6 +28,23 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
+##### [Version 0.4.1](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.1):
+- **changelog:**
+  - Fixed a flaw in the added logic to remove a stale _JVM_ path from
+    configuration, the way the path is stored has changed from _v4.x_
+    onward (Closes: [**#693798**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=693798))
+    (Reported by [_Steven Post_](mailto:steven.post@archimiddle.com))
+  - Several small fixes and improvements:
+    - Fixed the _JDK_ requirements for _SQL Developer_ _v4.0_
+    - Added _image thumbnails databases_ to the list of cruft to remove
+  - Fixed _`lintian`_ warning `windows-thumbnail-database-in-package`
+  - (Re-)Tested against _v3.x_ release family of _SQL Developer_
+- **downloads:**
+  - [**`sqldeveloper-package_0.4.1_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.1/sqldeveloper-package_0.4.1_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.4.1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.1/sqldeveloper-package_0.4.1.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.4.1.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.1/sqldeveloper-package_0.4.1.tar.xz) (_source code archive_)
+  - [`v0.3.0_v0.4.1.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.1/v0.3.0_v0.4.1.debdiff) (_Debian diff from previous version_)
+
 ##### [Version 0.4.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.0):
 - **changelog:**
   - Addressed all correctable issues and bugs:
