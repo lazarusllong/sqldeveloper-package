@@ -30,7 +30,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ##### [Version 0.4.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.0):
 - **changelog:**
-    Addressed all correctable issues and bugs:
+  - Addressed all correctable issues and bugs:
     - Separated target from options and disabled check for original file in package build (Closes: [**#868673**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=868673))
       (Reported and patch by [_Phil Morrell_](mailto:debian@emorrp1.name))
     - Added logic to wrapper script to remove a stale _JVM_ path from configuration (Closes: [**#693798**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=693798))
