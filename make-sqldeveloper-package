@@ -47,6 +47,7 @@ DPKG="dpkg"
 FAKEROOT="fakeroot"
 FILE="file"
 FIND="find"
+FOLD="fold"
 FROMDOS="fromdos"
 GETOPT="getopt"
 GREP="grep"
@@ -67,6 +68,7 @@ XARGS="xargs"
 
 CHMOD_OPTS="755"
 DPKG_OPTS="-i"
+FOLD_OPTS="-w 79 -s"
 GETOPT_OPTS="-o hb:e:ikl:m:r:u:v -l help,build-dir:,email:,install,keep-dir,revision:,maintainer:,root-command:,upstream-version:,version -s sh"
 GREP_OPTS="-E"
 MKDIR_OPTS="-p"
@@ -74,8 +76,9 @@ MKTEMP_OPTS="-d"
 MV_OPTS="--strip-trailing-slashes"
 RM_OPTS="-rf"
 RMDIR_OPTS="-p --ignore-fail-on-non-empty"
+SED_OPTS="-e"
 
-VERSION="0.4.1"
+VERSION="0.4.2"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -379,7 +382,6 @@ func_cleanup() {
 	fi
 
 	CUT_OPTS_FUNC_CLEAN="-d : -f 1"
-	SED_OPTS="-e"
 	SED_OPTS_INLINE="-i -e"
 	OPTDIR="${1}/${INSTDIR}/sqldeveloper"
 
@@ -457,6 +459,7 @@ func_debianize() {
 	fi
 
 	DATE_OPTS="-R"
+	GREP_OPTS_COPYRIGHT="${GREP_OPTS} -c"
 	DEBIAN_WORKDIR="${1}/debian"
 	${MKDIR} ${MKDIR_OPTS} "${DEBIAN_WORKDIR}"
 	(
@@ -522,220 +525,239 @@ Description: Oracle SQL Developer
  (JDK8.0).
  .
  Note that JDK1.7 (JDK7.0) or newer is not supported  by  Oracle SQL Developer
- prior to version 4.0.
+ prior to version 4.0 and that JDK1.8 (JDK8.0) or newer is not supported prior
+ to version 4.1.
 EOF
 	) >>"${DEBIAN_WORKDIR}/control"
 	printf "10\n" >"${DEBIAN_WORKDIR}/compat"
 	(
 	${CAT} <<EOF
-This package was debianized by ${DEBFULLNAME} <${DEBEMAIL}> on
-$(${DATE} ${DATE_OPTS}).
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: Oracle SQL Developer
+Upstream-Contact: https://www.oracle.com/corporate/contact/index.html
+Source: ${HOMEPAGE}
+Disclaimer:
+ This package is not part of the Debian GNU/Linux distribution. It falls into
+ category 2.2.3 of the Debian Policy Manual ("... not compliant with the DFSG
+ or are encumbered by patents or other legal issues that make their
+ distribution problematic.").
+Comment:
+ This package was debianized by ${DEBFULLNAME} <${DEBEMAIL}> on
+ $(${DATE} ${DATE_OPTS}).
 
-It was downloaded from <${HOMEPAGE}>
+Files: *
+Copyright: Copyright © 2009-2017 Oracle USA, Inc.
+License: OracleSQLDeveloper
 
-This package is not part of the Debian GNU/Linux distribution. It falls into
-category 2.2.3 of the Debian Policy Manual ("... not compliant with the DFSG or
-are encumbered by patents or other legal issues that make their distribution
-problematic.").
+Files: debian/*
+Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@bigfoot.com>
+License: GPL-3+
 
-Copyright:
+License: OracleSQLDeveloper
+ Oracle SQL Developer License Terms
+ Oracle SQL Developer Data Modeler License Terms
+ .
+ Export Controls on the Programs
+ Selecting the "Accept License Agreement" button is a confirmation of
+ your agreement that you comply, now and during the trial term, with
+ each of the following statements:
+ .
+ -You are not a citizen, national, or resident of, and are not under
+  control of, the government of Cuba, Iran, Sudan, Libya, North Korea,
+  Syria, nor any country to which the United States has prohibited export.
+ -You will not download or otherwise export or re-export the Programs,
+  directly or indirectly, to the above mentioned countries nor to citizens,
+  nationals or residents of those countries.
+ -You are not listed on the United States Department of Treasury lists
+  of Specially Designated Nationals, Specially Designated Terrorists,
+  and Specially Designated Narcotic Traffickers, nor are you listed on
+  the United States Department of Commerce Table of Denial Orders.
+ .
+ You will not download or otherwise export or re-export the Programs,
+ directly or indirectly, to persons on the above mentioned lists.
+ .
+ You will not use the Programs for, and will not allow the Programs to
+ be used for, any purposes prohibited by United States law, including,
+ without limitation, for the development, design, manufacture or production
+ of nuclear, chemical or biological weapons of mass destruction.
+ .
+ EXPORT RESTRICTIONS
+ You agree that U.S. export control laws and other applicable export
+ and import laws govern your use of the programs, including technical
+ data; additional information can be found on Oracle®'s Global Trade
+ Compliance web site (http://www.oracle.com/products/export).
+ .
+ You agree that neither the programs nor any direct product thereof will
+ be exported, directly, or indirectly, in violation of these laws, or
+ will be used for any purpose prohibited by these laws including, without
+ limitation, nuclear, chemical, or biological weapons proliferation.
+ .
+ Oracle Employees: Under no circumstances are Oracle Employees
+ authorized to download software for the purpose of distributing it to
+ customers. Oracle products are available to employees for internal
+ use or demonstration purposes only. In keeping with Oracle's trade
+ compliance obligations under U.S. and applicable multilateral law,
+ failure to comply with this policy could result in disciplinary action
+ up to and including termination.
+ .
+ Note: You are bound by the Oracle Technology Network ("OTN") License
+ Agreement terms. The OTN License Agreement terms also apply to all
+ updates you receive under your Technology Track subscription.
+ .
+ The OTN License Agreement terms below supercede any shrinkwrap license
+ on the OTN Technology Track software CDs and previous OTN License terms
+ (including the Oracle Program License as modified by the OTN Program
+ Use Certificate).
+ .
+ Oracle SQL Developer License Agreement
+ Oracle SQL Developer Data Modeler License Agreement
+ .
+ "We," "us," and "our" refers to Oracle America, Inc., for and on behalf of
+ itself and its subsidiaries and affiliates under common control. "You" and
+ "your" refers to the individual or entity that wishes to use the programs
+ from Oracle. "Programs" refers to the Oracle software product you wish to
+ download and use and program documentation. "License" refers to your right
+ to use the programs under the terms of this agreement. This agreement
+ is governed by the substantive and procedural laws of California. You
+ and Oracle agree to submit to the exclusive jurisdiction of, and venue
+ in, the courts of San Francisco, San Mateo, or Santa Clara counties in
+ California in any dispute arising out of or relating to this agreement.
+ .
+ We are willing to license the programs to you only upon the condition
+ that you accept all of the terms contained in this agreement. Read the
+ terms carefully and select the "Accept" button at the bottom of the
+ page to confirm your acceptance. If you are not willing to be bound
+ by these terms, select the "Do Not Accept" button and the registration
+ process will not continue.
+ .
+ LICENSE RIGHTS
+ We grant you a nonexclusive, nontransferable limited license to use
+ the programs solely for your business operations and any third party
+ training as part of such business operations. We may audit your use
+ of the programs. Program documentation may be accessed online at
+ http://www.oracle.com/technetwork/indexes/documentation/index.html.
+ .
+ Ownership and Restrictions
+ We retain all ownership and intellectual property rights in the
+ programs. You may make a sufficient number of copies of the programs
+ for the licensed use and one copy of the programs for backup purposes.
+ .
+ You may not:
+ - remove or modify any program markings or any notice of our proprietary
+   rights;
+ - make the programs available in any manner to any third party, other
+   than as specified above;
+ - use the programs for any purpose other than as provided above;
+ - assign this agreement or give or transfer the programs or an interest
+   in them to another individual or entity;
+ - cause or permit reverse engineering (unless required by law for
+   interoperability), disassembly or decompilation of the programs;
+ - disclose results of any program benchmark tests without our prior
+   consent.
+ .
+ Export
+ You agree that U.S. export control laws and other applicable
+ export and import laws govern your use of the programs,
+ including technical data; additional information can be
+ found on Oracle's Global Trade Compliance web site located at
+ http://www.oracle.com/products/export/index.html?content.html. You
+ agree that neither the programs nor any direct product thereof will be
+ exported, directly, or indirectly, in violation of these laws, or will
+ be used for any purpose prohibited by these laws including, without
+ limitation, nuclear, chemical, or biological weapons proliferation.
+ .
+ Disclaimer of Warranty and Exclusive Remedies
+ THE PROGRAMS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. WE
+ FURTHER DISCLAIM ALL WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT
+ LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
+ PARTICULAR PURPOSE OR NONINFRINGEMENT.
+ .
+ IN NO EVENT SHALL WE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
+ PUNITIVE OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOSS OF PROFITS,
+ REVENUE, DATA OR DATA USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER
+ IN AN ACTION IN CONTRACT OR TORT, EVEN IF WE HAVE BEEN ADVISED OF THE
+ POSSIBILITY OF SUCH DAMAGES. OUR ENTIRE LIABILITY FOR DAMAGES HEREUNDER
+ SHALL IN NO EVENT EXCEED ONE THOUSAND DOLLARS (U.S. \$1,000).
+ .
+ Trial Programs Included With Orders
+ We may include additional programs with an order which may be used for
+ trial purposes only. You will have 30 days from the delivery date to
+ evaluate these programs. Any use of these programs after the 30 day
+ trial period requires you to obtain the applicable license. Programs
+ licensed for trial purposes are provided "as is" and we do not provide
+ technical support or any warranties for these programs.
+ .
+ Technical Support
+ Our technical support organization does not provide technical support,
+ phone support, or updates specifically for the programs licensed under
+ this agreement. However, if you have a supported license of an Oracle
+ database program, then the technical support organization will provide
+ technical support, phone support for the program licensed hereunder in
+ conjunction with the Oracle database program license.
+ .
+ End of Agreement
+ You may terminate this agreement by destroying all copies of the
+ programs. We have the right to terminate your right to use the programs
+ if you fail to comply with any of the terms of this agreement, in which
+ case you shall destroy all copies of the programs.
+ .
+ Relationship Between the Parties
+ The relationship between you and us is that of licensee/licensor. Neither
+ party will represent that it has any authority to assume or create
+ any obligation, express or implied, on behalf of the other party,
+ nor to represent the other party as agent, employee, franchisee, or
+ in any other capacity. Nothing in this agreement shall be construed
+ to limit either party's right to independently develop or distribute
+ software that is functionally similar to the other party's products,
+ so long as proprietary information of the other party is not included
+ in such software.
+ .
+ Open Source
+ Third party technology that may be appropriate or necessary for use with
+ the program may be specified in the program documentation. To the extent
+ stated in the program documentation, such third party technology is
+ licensed to you under the terms of the third party technology license
+ agreement specified in the program documentation and not under the
+ terms of this agreement. Nothing in this agreement should be construed
+ as modifying or limiting your rights to use such third party technology
+ under the terms of the specified third party license.
+ .
+ Entire Agreement
+ You agree that this agreement is the complete agreement for the programs
+ and licenses, and this agreement supersedes all prior or contemporaneous
+ agreements or representations. If any term of this agreement is found
+ to be invalid or unenforceable, the remaining provisions will remain
+ effective.
+ .
+ Last updated: 09/17/10 (jlr)
+ .
+ Should you have any questions concerning this License Agreement, or if
+ you desire to contact Oracle for any reason, please write:
+ .
+ Oracle America, Inc.
+ 500 Oracle Parkway,
+ Redwood City, CA 94065
+ .
+ Oracle may contact you to ask if you had a satisfactory experience
+ installing and using this OTN software download.
 
-    Copyright © 2009-2017 Oracle USA, Inc.
-
-License:
-
-    Oracle SQL Developer License Terms
-    Oracle SQL Developer Data Modeler License Terms
-
-    Export Controls on the Programs
-     Selecting the "Accept License Agreement" button is a confirmation of
-     your agreement that you comply, now and during the trial term, with
-     each of the following statements:
-
-     -You are not a citizen, national, or resident of, and are not under
-      control of, the government of Cuba, Iran, Sudan, Libya, North Korea,
-      Syria, nor any country to which the United States has prohibited export.
-     -You will not download or otherwise export or re-export the Programs,
-      directly or indirectly, to the above mentioned countries nor to citizens,
-      nationals or residents of those countries.
-     -You are not listed on the United States Department of Treasury lists
-      of Specially Designated Nationals, Specially Designated Terrorists,
-      and Specially Designated Narcotic Traffickers, nor are you listed on
-      the United States Department of Commerce Table of Denial Orders.
-
-     You will not download or otherwise export or re-export the Programs,
-     directly or indirectly, to persons on the above mentioned lists.
-
-     You will not use the Programs for, and will not allow the Programs to
-     be used for, any purposes prohibited by United States law, including,
-     without limitation, for the development, design, manufacture or production
-     of nuclear, chemical or biological weapons of mass destruction.
-
-    EXPORT RESTRICTIONS
-     You agree that U.S. export control laws and other applicable export
-     and import laws govern your use of the programs, including technical
-     data; additional information can be found on Oracle®'s Global Trade
-     Compliance web site (http://www.oracle.com/products/export).
-
-     You agree that neither the programs nor any direct product thereof will
-     be exported, directly, or indirectly, in violation of these laws, or
-     will be used for any purpose prohibited by these laws including, without
-     limitation, nuclear, chemical, or biological weapons proliferation.
-
-     Oracle Employees: Under no circumstances are Oracle Employees
-     authorized to download software for the purpose of distributing it to
-     customers. Oracle products are available to employees for internal
-     use or demonstration purposes only. In keeping with Oracle's trade
-     compliance obligations under U.S. and applicable multilateral law,
-     failure to comply with this policy could result in disciplinary action
-     up to and including termination.
-
-    Note: You are bound by the Oracle Technology Network ("OTN") License
-    Agreement terms. The OTN License Agreement terms also apply to all
-    updates you receive under your Technology Track subscription.
-
-     The OTN License Agreement terms below supercede any shrinkwrap license
-     on the OTN Technology Track software CDs and previous OTN License terms
-     (including the Oracle Program License as modified by the OTN Program
-     Use Certificate).
-
-
-    Oracle SQL Developer License Agreement
-    Oracle SQL Developer Data Modeler License Agreement
-
-     "We," "us," and "our" refers to Oracle America, Inc., for and on behalf of
-     itself and its subsidiaries and affiliates under common control. "You" and
-     "your" refers to the individual or entity that wishes to use the programs
-     from Oracle. "Programs" refers to the Oracle software product you wish to
-     download and use and program documentation. "License" refers to your right
-     to use the programs under the terms of this agreement. This agreement
-     is governed by the substantive and procedural laws of California. You
-     and Oracle agree to submit to the exclusive jurisdiction of, and venue
-     in, the courts of San Francisco, San Mateo, or Santa Clara counties in
-     California in any dispute arising out of or relating to this agreement.
-
-     We are willing to license the programs to you only upon the condition
-     that you accept all of the terms contained in this agreement. Read the
-     terms carefully and select the "Accept" button at the bottom of the
-     page to confirm your acceptance. If you are not willing to be bound
-     by these terms, select the "Do Not Accept" button and the registration
-     process will not continue.
-
-    LICENSE RIGHTS
-     We grant you a nonexclusive, nontransferable limited license to use
-     the programs solely for your business operations and any third party
-     training as part of such business operations. We may audit your use
-     of the programs. Program documentation may be accessed online at
-     http://www.oracle.com/technetwork/indexes/documentation/index.html.
-
-    Ownership and Restrictions
-     We retain all ownership and intellectual property rights in the
-     programs. You may make a sufficient number of copies of the programs
-     for the licensed use and one copy of the programs for backup purposes.
-
-    You may not:
-     - remove or modify any program markings or any notice of our proprietary
-       rights;
-     - make the programs available in any manner to any third party, other
-       than as specified above;
-     - use the programs for any purpose other than as provided above;
-     - assign this agreement or give or transfer the programs or an interest
-       in them to another individual or entity;
-     - cause or permit reverse engineering (unless required by law for
-       interoperability), disassembly or decompilation of the programs;
-     - disclose results of any program benchmark tests without our prior
-       consent.
-
-    Export
-     You agree that U.S. export control laws and other applicable
-     export and import laws govern your use of the programs,
-     including technical data; additional information can be
-     found on Oracle's Global Trade Compliance web site located at
-     http://www.oracle.com/products/export/index.html?content.html. You
-     agree that neither the programs nor any direct product thereof will be
-     exported, directly, or indirectly, in violation of these laws, or will
-     be used for any purpose prohibited by these laws including, without
-     limitation, nuclear, chemical, or biological weapons proliferation.
-
-    Disclaimer of Warranty and Exclusive Remedies
-     THE PROGRAMS ARE PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND. WE
-     FURTHER DISCLAIM ALL WARRANTIES, EXPRESS AND IMPLIED, INCLUDING WITHOUT
-     LIMITATION, ANY IMPLIED WARRANTIES OF MERCHANTABILITY, FITNESS FOR A
-     PARTICULAR PURPOSE OR NONINFRINGEMENT.
-
-     IN NO EVENT SHALL WE BE LIABLE FOR ANY INDIRECT, INCIDENTAL, SPECIAL,
-     PUNITIVE OR CONSEQUENTIAL DAMAGES, OR DAMAGES FOR LOSS OF PROFITS,
-     REVENUE, DATA OR DATA USE, INCURRED BY YOU OR ANY THIRD PARTY, WHETHER
-     IN AN ACTION IN CONTRACT OR TORT, EVEN IF WE HAVE BEEN ADVISED OF THE
-     POSSIBILITY OF SUCH DAMAGES. OUR ENTIRE LIABILITY FOR DAMAGES HEREUNDER
-     SHALL IN NO EVENT EXCEED ONE THOUSAND DOLLARS (U.S. \$1,000).
-
-    Trial Programs Included With Orders
-     We may include additional programs with an order which may be used for
-     trial purposes only. You will have 30 days from the delivery date to
-     evaluate these programs. Any use of these programs after the 30 day
-     trial period requires you to obtain the applicable license. Programs
-     licensed for trial purposes are provided "as is" and we do not provide
-     technical support or any warranties for these programs.
-
-    Technical Support
-     Our technical support organization does not provide technical support,
-     phone support, or updates specifically for the programs licensed under
-     this agreement. However, if you have a supported license of an Oracle
-     database program, then the technical support organization will provide
-     technical support, phone support for the program licensed hereunder in
-     conjunction with the Oracle database program license.
-
-    End of Agreement
-     You may terminate this agreement by destroying all copies of the
-     programs. We have the right to terminate your right to use the programs
-     if you fail to comply with any of the terms of this agreement, in which
-     case you shall destroy all copies of the programs.
-
-    Relationship Between the Parties
-     The relationship between you and us is that of licensee/licensor. Neither
-     party will represent that it has any authority to assume or create
-     any obligation, express or implied, on behalf of the other party,
-     nor to represent the other party as agent, employee, franchisee, or
-     in any other capacity. Nothing in this agreement shall be construed
-     to limit either party's right to independently develop or distribute
-     software that is functionally similar to the other party's products,
-     so long as proprietary information of the other party is not included
-     in such software.
-
-    Open Source
-     Third party technology that may be appropriate or necessary for use with
-     the program may be specified in the program documentation. To the extent
-     stated in the program documentation, such third party technology is
-     licensed to you under the terms of the third party technology license
-     agreement specified in the program documentation and not under the
-     terms of this agreement. Nothing in this agreement should be construed
-     as modifying or limiting your rights to use such third party technology
-     under the terms of the specified third party license.
-
-    Entire Agreement
-     You agree that this agreement is the complete agreement for the programs
-     and licenses, and this agreement supersedes all prior or contemporaneous
-     agreements or representations. If any term of this agreement is found
-     to be invalid or unenforceable, the remaining provisions will remain
-     effective.
-
-
-    Last updated: 09/17/10 (jlr)
-
-    Should you have any questions concerning this License Agreement, or if
-    you desire to contact Oracle for any reason, please write:
-
-    Oracle America, Inc.
-    500 Oracle Parkway,
-    Redwood City, CA 94065
-
-    Oracle may contact you to ask if you had a satisfactory experience
-    installing and using this OTN software download.
-
-The Debian packaging is © 2009-2017, Lazarus Long <lazarus.long@bigfoot.com>
-and is licensed under the GPL either version 3 of the License, or (at your
-option) any later version, see \`/usr/share/common-licenses/GPL-3'.
+License: GPL-3+
+ This package is free software; you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation; either version 3 of the License, or (at your option) any later
+ version.
+ .
+ This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public License along with
+ this package; if not, write to the Free Software Foundation, Inc., 51
+ Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 3, can be found in \`/usr/share/common-licenses/GPL-3'.
 EOF
 	) >"${DEBIAN_WORKDIR}/copyright"
 
@@ -743,10 +765,9 @@ EOF
 		(
 		${CAT} <<EOF
 
-There are specific license terms regarding the Oracle NoSQL Database Client:
-
-Oracle NoSQL Database Client, is licensed under the Apache
-2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
+Files: sqldeveloper/sqldeveloper/extensions/oracle.sqldeveloper.onsd*
+Copyright: Copyright © 2009-2017 Oracle USA, Inc.
+License: Apache-2.0
 EOF
 		) >>"${DEBIAN_WORKDIR}/copyright"
 
@@ -757,15 +778,18 @@ EOF
 		(
 		${CAT} <<EOF
 
-There are specific license terms regarding the GitClientAdapter:
+Files: sqldeveloper/jdev/extensions/oracle.jdeveloper.git*
+Copyright: Copyright (c) 2007, Eclipse Foundation, Inc. and its licensors.
+License: Eclipse-1.0
+
+License: Eclipse-1.0
 EOF
 		) >>"${DEBIAN_WORKDIR}/copyright"
 
 		for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license/* ; do
 			LICFILE="$(${BASENAME} ${l})"
 
-			printf "\n%s:\n" "${LICFILE}" >>"${DEBIAN_WORKDIR}/copyright"
-			${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
+			${CAT} "${l}" | ${FROMDOS} |${SED} ${SED_OPTS} 's/^[[:space:]]*//g' |${FOLD} ${FOLD_OPTS} |${SED} ${SED_OPTS} 's/^$/./g;s/^/ /g' >>"${DEBIAN_WORKDIR}/copyright"
 		done
 
 		${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.git/license/*
@@ -773,65 +797,204 @@ EOF
 	fi
 
 
-	if ! [ -d "${1}/${INSTDIR}/sqldeveloper/svnkit/licenses" ] ; then
-		if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
-			(
-			${CAT} <<EOF
-
-There are specific license terms regarding the SVNClientAdapter:
-
-SVNClientAdapter, with the following exceptions, is licensed under the Apache
-2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
-EOF
-			) >>"${DEBIAN_WORKDIR}/copyright"
-
-			for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/* ; do
-				LICFILE="$(${BASENAME} ${l})"
-
-				if [ "${LICFILE}" = "license.txt" ] ; then
-					continue
-				fi
-
-				printf "\n%s:\n" "${LICFILE}" >>"${DEBIAN_WORKDIR}/copyright"
-				${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
-			done
-
-			${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/*
-			${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
-		fi
-	else
+	if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
 		(
 		${CAT} <<EOF
 
-There are specific license terms regarding the TMate SVNKit library:
+Files: sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion*
+Copyright: Copyright (c) 2004-2009 TMate Software. All rights reserved.
+License: Apache-2.0 or TMate
 
-SQLJet is dual licensed under the following exceptions when distributed
-bundled with the TMate SVNKit library and under the GNU General Public License
-2 terms available at \`/usr/share/common-licenses/GPL-2'.
+License: TMate
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
 
-SVNClientAdapter, with the following exceptions, is licensed under the Apache
-2.0 terms available at \`/usr/share/common-licenses/Apache-2.0'.
+		for l in ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/* ; do
+			LICFILE="$(${BASENAME} ${l})"
+
+			if [ "${LICFILE}" = "license.txt" ] ; then
+				continue
+			fi
+
+			${CAT} "${l}" | ${FROMDOS} |${SED} ${SED_OPTS} 's/^[[:space:]]*//g' |${FOLD} ${FOLD_OPTS} |${SED} ${SED_OPTS} 's/^$/./g;s/^/ /g' >>"${DEBIAN_WORKDIR}/copyright"
+		done
+
+		${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/*
+		${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
+	fi
+
+	if [ -d "${1}/${INSTDIR}/sqldeveloper/svnkit/licenses" ] ; then
+		(
+		${CAT} <<EOF
+
+Files: sqldeveloper/svnkit/svnClientAdapter.jar
+Copyright: Copyright (c) 2004-2009 TMate Software. All rights reserved.
+License: Apache-2.0 or TMate
+
+Files: sqldeveloper/svnkit/sqljet.jar
+Copyright: Copyright (C) 2009-2010 TMate Software Ltd
+License: GPL-2 or TMate
+
+Files: sqldeveloper/svnkit/antlr-runtime.jar
+Copyright: Copyright (c) 2003-2008 Terence Parr
+License: BSD-3-clause
+
+Files: sqldeveloper/svnkit/svnjavahl.jar
+Copyright: Copyright (c) 2000-2005 CollabNet.  All rights reserved.
+License: CollabNet-1
+
+Files: sqldeveloper/svnkit/sequence.jar
+Copyright: Copyright (c) 2000-2008 SyntEvo GmbH, Ainring, GERMANY.
+License: SyntEvo
+
+Files: sqldeveloper/svnkit/trilead.jar
+Copyright: Copyright (c) 2007-2008 Trilead AG (http://www.trilead.com)
+           Copyright (c) 2005 - 2006 Swiss Federal Institute of Technology
+            (ETH Zurich), Department of Computer Science
+            (http://www.inf.ethz.ch), Christian Plattner. All rights reserved.
+           Copyright (c) 2000 - 2004 The Legion Of The Bouncy Castle
+            (http://www.bouncycastle.org)
+License: TriLead-ETHZurich-TheLegionOfTheBouncyCastle
+
+Files: sqldeveloper/svnkit/svnkit.jar
+Copyright: Copyright (c) 2004-2009 TMate Software. All rights reserved.
+License: TMate
 EOF
 		) >>"${DEBIAN_WORKDIR}/copyright"
 
 		for l in ${1}/${INSTDIR}/sqldeveloper/svnkit/licenses/* ; do
 			LICFILE="$(${BASENAME} ${l})"
 
-			if [ "${LICFILE}" = "license.txt" -o  "${LICFILE}" = "SQLJET-LICENSE" ] ; then
+			case "${LICFILE}" in
+				"COPYING")
+					LICNAME="TMate" ;;
+				"JAVAHL-LICENSE")
+					LICNAME="CollabNet-1" ;;
+				"SEQUENCE-LICENSE")
+					LICNAME="SyntEvo" ;;
+				"TRILEAD-LICENSE")
+					LICNAME="TriLead-ETHZurich-TheLegionOfTheBouncyCastle" ;;
+				*)
+					continue ;;
+			esac
+
+			if [ $(${GREP} ${GREP_OPTS_COPYRIGHT} "^License: ${LICNAME}$" "${DEBIAN_WORKDIR}/copyright") -gt 1 ] ; then
 				continue
 			fi
 
-			printf "\n%s:\n" "${LICFILE}" >>"${DEBIAN_WORKDIR}/copyright"
-			${CAT} "${l}" | ${FROMDOS} >>"${DEBIAN_WORKDIR}/copyright"
+			printf "\nLicense: %s:\n" "${LICNAME}" >>"${DEBIAN_WORKDIR}/copyright"
+			${CAT} "${l}" | ${FROMDOS} |${SED} ${SED_OPTS} 's/^[[:space:]]*//g' |${FOLD} ${FOLD_OPTS} |${SED} ${SED_OPTS} 's/^$/./g;s/^/ /g' >>"${DEBIAN_WORKDIR}/copyright"
 		done
 
 		${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/svnkit/licenses/*
 		${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/svnkit/licenses"
+	fi
 
-		if [ -d "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses" ] ; then
-			${RM} ${RM_OPTS} ${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses/*
-			${RMDIR} ${RMDIR_OPTS} "${1}/${INSTDIR}/sqldeveloper/jdev/extensions/oracle.jdeveloper.subversion/licenses"
-		fi
+	if [ $(${GREP} ${GREP_OPTS} "^License:" "${DEBIAN_WORKDIR}/copyright" |${GREP} ${GREP_OPTS_COPYRIGHT} "Apache-2") -gt 0 ] ; then
+		(
+		${CAT} <<EOF
+
+License: Apache-2.0
+ Licensed to the Apache Software Foundation (ASF) under one or more
+ contributor license agreements.  See the NOTICE file distributed with
+ this work for additional information regarding copyright ownership.
+ The ASF licenses this file to You under the Apache License, Version 2.0
+ (the "License"); you may not use this file except in compliance with
+ the License.  You may obtain a copy of the License at
+ .
+      http://www.apache.org/licenses/LICENSE-2.0
+ .
+ Unless required by applicable law or agreed to in writing, software
+ distributed under the License is distributed on an "AS IS" BASIS,
+ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ See the License for the specific language governing permissions and
+ limitations under the License.
+ .
+ On Debian systems, the full text of the Apache Software License version 2 can
+ be found in the file \`/usr/share/common-licenses/Apache-2.0'.
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
+	fi
+
+	if [ $(${GREP} ${GREP_OPTS} "^License:" "${DEBIAN_WORKDIR}/copyright" |${GREP} ${GREP_OPTS_COPYRIGHT} "GPL-2\+") -gt 0 ] ; then
+		(
+		${CAT} <<EOF
+
+License: GPL-2+
+ This package is free software; you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation; either version 2 of the License, or (at your option) any later
+ version.
+ .
+ This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public License along with
+ this package; if not, write to the Free Software Foundation, Inc., 51
+ Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2, can be found in \`/usr/share/common-licenses/GPL-2'.
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
+	elif [ $(${GREP} ${GREP_OPTS} "^License:" "${DEBIAN_WORKDIR}/copyright" |${GREP} ${GREP_OPTS_COPYRIGHT} "GPL-2") -gt 0 ] ; then
+		(
+		${CAT} <<EOF
+
+License: GPL-2
+ This package is free software; you can redistribute it and/or modify it under
+ the terms of the GNU General Public License as published by the Free Software
+ Foundation; specifically version 2 of the License.
+ .
+ This package is distributed in the hope that it will be useful, but WITHOUT
+ ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
+ FOR A PARTICULAR PURPOSE. See the GNU General Public License for more
+ details.
+ .
+ You should have received a copy of the GNU General Public License along with
+ this package; if not, write to the Free Software Foundation, Inc., 51
+ Franklin St, Fifth Floor, Boston, MA 02110-1301 USA
+ .
+ On Debian systems, the complete text of the GNU General Public License
+ version 2, can be found in \`/usr/share/common-licenses/GPL-2'.
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
+	fi
+
+	if [ $(${GREP} ${GREP_OPTS} "^License:" "${DEBIAN_WORKDIR}/copyright" |${GREP} ${GREP_OPTS_COPYRIGHT} "BSD-3-clause") -gt 0 ] ; then
+		(
+		${CAT} <<EOF
+
+License: BSD-3-clause
+ All rights reserved.
+ .
+ Redistribution and use in source and binary forms, with or without
+ modification, are permitted provided that the following conditions
+ are met:
+ 1. Redistributions of source code must retain the above copyright
+    notice, this list of conditions and the following disclaimer.
+ 2. Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+ 3. Neither the name of the University nor the names of its contributors
+    may be used to endorse or promote products derived from this software
+    without specific prior written permission.
+ .
+ THIS SOFTWARE IS PROVIDED BY THE REGENTS AND CONTRIBUTORS ``AS IS'' AND
+ ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+ IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE
+ ARE DISCLAIMED.  IN NO EVENT SHALL THE REGENTS OR CONTRIBUTORS BE LIABLE
+ FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+ DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS
+ OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION)
+ HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT
+ LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY
+ OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF
+ SUCH DAMAGE.
+EOF
+		) >>"${DEBIAN_WORKDIR}/copyright"
 	fi
 
 	(
@@ -852,12 +1015,13 @@ versions that are compatible with SQL Developer are any JDK 1.5.0_06 or above
 or JDK 1.6.0_03 or above for SQL Developer versions up to 1.5.5. SQL Developer
 versions from 2.1 to 3.1 are compatible with JDK 1.6.0_11 or above and SQL
 Developer version 3.2 is compatible with JDK 1.6.0_04 or above. SQL Developer
-version 4.0 is compatible with JDK 1.7 (JDK7.0) series or newer and SQL
-Developer versions from 4.1 to 17.3 are compatible with JDK 1.8 (JDK8.0)
-series or newer.
+version 4.0 is compatible with JDK 1.7 (JDK7.0) series and SQL Developer
+versions from 4.1 to 17.3 are compatible with JDK 1.8 (JDK8.0) series or
+newer.
 
-Note that Oracle SQL Developer prior to version 4.0 is not compatible with
-JDK 1.7 (JDK7.0) or newer.
+Note that Oracle SQL Developer prior to version 4.0 is not compatible with JDK
+1.7 (JDK7.0) or newer and prior to version 4.1 is not compatible with.JDK 1.8
+(JDK8.0) or newer.
 
 There are several ways to obtain a compatible JDK:
 
