@@ -28,6 +28,16 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
+##### [Version 0.4.2](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.2):
+- **changelog:**
+  - Fixed _`lintian`_ warning `no-dep5-copyright`
+  - Clarified the _JDK_ requirements for **all** _SQL Developer_ version families
+- **downloads:**
+  - [**`sqldeveloper-package_0.4.2_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.2/sqldeveloper-package_0.4.2_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.4.2.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.2/sqldeveloper-package_0.4.2.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.4.2.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.2/sqldeveloper-package_0.4.2.tar.xz) (_source code archive_)
+  - [`v0.4.1_v0.4.2.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.2/v0.4.1_v0.4.2.debdiff) (_Debian diff from previous version_)
+
 ##### [Version 0.4.1](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.1):
 - **changelog:**
   - Fixed a flaw in the added logic to remove a stale _JVM_ path from configuration, the way the path is stored has changed from _v4.x_ onward (Closes: [**#693798**](https://bugs.debian.org/cgi-bin/bugreport.cgi?bug=693798))
