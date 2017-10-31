@@ -30,6 +30,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ##### [Version 0.4.4](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.4):
 - **changelog:**
+  - Removed `debian/watch` script, it doesn't belong in a _native_ package
 - **downloads:**
   - [**`sqldeveloper-package_0.4.4_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/sqldeveloper-package_0.4.4_all.deb) (_binary package_)
   - [`sqldeveloper-package_0.4.4.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/sqldeveloper-package_0.4.4.dsc) (_source description file_)
