@@ -1,7 +1,7 @@
 Source: sqldeveloper-package
 Section: contrib/misc
 Priority: optional
-Maintainer: Lazarus Long <lazarus.long@bigfoot.com>
+Maintainer: Lazarus Long <lazarus.long@sapo.pt>
 Build-Depends: debhelper (>= 10.2.5)
 Standards-Version: 4.1.1
 Vcs-Git: https://github.com/lazarusllong/sqldeveloper-package.git

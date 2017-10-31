@@ -1,3 +1,11 @@
+sqldeveloper-package (0.4.3) unstable; urgency=low
+
+  * Changed author/maintainer email address
+  * Generated new GPG key
+  * Added debian/watch script
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Mon, 30 Oct 2017 17:10:01 +0000
+
 sqldeveloper-package (0.4.2) unstable; urgency=low
 
   * Fixed lintian warning no-dep5-copyright

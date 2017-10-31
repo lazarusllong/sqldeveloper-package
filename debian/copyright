@@ -1,23 +1,23 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@bigfoot.com>
+Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 Upstream-Name: Oracle SQL Developer Debian package builder
-Upstream-Contact: Lazarus Long <lazarus.long@bigfoot.com>
+Upstream-Contact: Lazarus Long <lazarus.long@sapo.pt>
 Source: https://github.com/lazarusllong/sqldeveloper-package.git
 Disclaimer:
  This package is not part of the Debian GNU/Linux distribution. It falls into
  category 2.2.2 of the Debian Policy Manual ("wrapper packages or other sorts
  of free accessories for non-free programs.").
 Comment:
- This package was debianized by Lazarus Long <lazarus.long@bigfoot.com> on
+ This package was debianized by Lazarus Long <lazarus.long@sapo.pt> on
  Sun, 01 Feb 2009 04:41:00 +0000.
 
 Files: *
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@bigfoot.com>
+Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 Files: debian/*
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@bigfoot.com>
+Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 License: GPL-3+
