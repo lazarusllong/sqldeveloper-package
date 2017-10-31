@@ -78,7 +78,7 @@ RM_OPTS="-rf"
 RMDIR_OPTS="-p --ignore-fail-on-non-empty"
 SED_OPTS="-e"
 
-VERSION="0.4.3"
+VERSION="0.4.4"
 ITP=515233
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
@@ -1309,11 +1309,6 @@ codeless-jar
 classpath-contains-relative-path
 EOF
 	) >"${DEBIAN_WORKDIR}/sqldeveloper.lintian-overrides"
-	(
-	${CAT} <<EOF
-version=4
-EOF
-	) >"${DEBIAN_WORKDIR}/watch"
 	(
 	${CAT} <<EOF
 #!/usr/bin/make -f

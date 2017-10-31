@@ -1,3 +1,9 @@
+sqldeveloper-package (0.4.4) unstable; urgency=low
+
+  * Removed debian/watch script, it doesn't belong in a native package
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Tue, 31 Oct 2017 09:04:05 +0000
+
 sqldeveloper-package (0.4.3) unstable; urgency=low
 
   * Changed author/maintainer email address

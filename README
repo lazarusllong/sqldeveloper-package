@@ -34,4 +34,4 @@ After installing a compatible JDK simply launch SQL Developer through the
 graphical interface or by invoking /usr/bin/sqldeveloper and supply the path
 where the JDK was installed when prompted.
 
- -- Lazarus Long <lazarus.long@sapo.pt>  Mon, 30 Oct 2017 17:10:01 +0000
+ -- Lazarus Long <lazarus.long@sapo.pt>  Tue, 31 Oct 2017 09:04:05 +0000
