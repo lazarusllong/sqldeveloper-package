@@ -28,16 +28,21 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
+##### [Version 0.4.4](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.4):
+- **changelog:**
+- **downloads:**
+  - [**`sqldeveloper-package_0.4.4_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/sqldeveloper-package_0.4.4_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.4.4.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/sqldeveloper-package_0.4.4.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.4.4.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/sqldeveloper-package_0.4.4.tar.xz) (_source code archive_)
+  - [`v0.4.2_v0.4.4.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.4/v0.4.2_v0.4.4.debdiff) (_Debian diff from previous version_)
+
 ##### [Version 0.4.3](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.3):
 - **changelog:**
   - Changed author/maintainer email address
   - Generated new _GPG_ key
   - Added `debian/watch` script
 - **downloads:**
-  - [**`sqldeveloper-package_0.4.3_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.3/sqldeveloper-package_0.4.3_all.deb) (_binary package_)
-  - [`sqldeveloper-package_0.4.3.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.3/sqldeveloper-package_0.4.3.dsc) (_source description file_)
-  - [`sqldeveloper-package_0.4.3.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.3/sqldeveloper-package_0.4.3.tar.xz) (_source code archive_)
-  - [`v0.4.2_v0.4.3.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.4.3/v0.4.2_v0.4.3.debdiff) (_Debian diff from previous version_)
+  - _(unpublished)_
 
 ##### [Version 0.4.2](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.4.2):
 - **changelog:**
