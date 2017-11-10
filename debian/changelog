@@ -1,3 +1,31 @@
+sqldeveloper-package (0.5.0) unstable; urgency=low
+
+  * Since SQL Developer v4.1, Oracle has started to include i386 and amd64
+    shared libraries in NetBeans Platform modules. Due to this converted
+    make-sqldeveloper-package to both generate multiple packages and to be
+    Multi-Arch compatible:
+    - Added Multi-Arch dependencies
+    - Added cross-packaging functionality
+    - Rewrote a large portion of make-sqldeveloper-package to deal with the
+      additional logic
+    - Rearranged the debian/* files to suporte multiple packages
+    - Generated packages recommend each other (libraries and SQL Developer)
+    - Added a new command line option "-s|--skip-libraries" to skip building
+      the shared libraries package(s)
+  * Added a new command line option "-x|--extract-only" to prepare a build
+    tree without building package(s) (this option implies "-k|--keep-dir")
+  * Added descriptive header, detailed progress output and stdout/stderr
+    selection according to the type of message
+  * Added a new command line option "-q|--quiet" to suppress normal output
+  * Fixed the long time broken command line option "-i|--install" which was
+    not finding the correct package name
+  * Fixed a small typo in the machine readable copyright file "License:"
+    section creation
+  * Tested against v4.x and v17.x release families of SQL Developer
+  * Bumped version to reflect functionality
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Fri, 10 Nov 2017 15:54:49 +0000
+
 sqldeveloper-package (0.4.4) unstable; urgency=low
 
   * Removed debian/watch script, it doesn't belong in a native package
@@ -119,7 +147,7 @@ sqldeveloper-package (0.2.3+nmu1) unstable; urgency=low
 
 sqldeveloper-package (0.2.3) unstable; urgency=low
 
-  * Fixed the command line options "-m|--maintainer" option wich was not
+  * Fixed the command line options "-m|--maintainer" option which was not
     getting the current login
 
  -- Lazarus Long <lazarus.long@bigfoot.com>  Sun, 05 Apr 2009 21:02:33 +0100
@@ -184,7 +212,7 @@ sqldeveloper-package (0.1.5) unstable; urgency=low
     - copyright-refers-to-versionless-license-file
   * Fixed lintian warning:
     - debhelper-but-no-misc-depends
-  * Corrected an unescaped '$' in Oracle license text 
+  * Corrected an unescaped '$' in Oracle license text
   * Silenced the build process of make-sqldeveloper-package
 
  -- Lazarus Long <lazarus.long@bigfoot.com>  Mon, 23 Feb 2009 00:54:09 +0000

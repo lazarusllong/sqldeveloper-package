@@ -10,7 +10,10 @@ Homepage: https://lazarusllong.github.io/sqldeveloper-package/
 
 Package: sqldeveloper-package
 Architecture: all
-Depends: ${misc:Depends}, bzip2, devscripts, fakeroot, file, imagemagick, tofrodos, unzip
+Depends:
+ ${misc:Depends}, binutils-multiarch, binutils-i686-linux-gnu,
+ binutils-x86-64-linux-gnu, bzip2, dh-exec, devscripts, fakeroot, file,
+ imagemagick, tofrodos, unzip
 Description: Oracle SQL Developer Debian package builder
  This utility makes it possible to build a Debian package of Oracle SQL
  Developer. The Oracle SQL Developer program is governed by the copyright
