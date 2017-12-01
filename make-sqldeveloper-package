@@ -3128,11 +3128,11 @@ EOF
 	${CAT} <<EOF
 [Desktop Entry]
 Version=1.0
-Name=SQL Developer
+Name=SQL Developer (${UPSTREAMVER})
 Exec=/usr/bin/${PROGNAME}.${UPSTREAMVER}
 Icon=/usr/share/pixmaps/${PROGNAME}.${UPSTREAMVER}.xpm
 Type=Application
-Comment=Oracle SQL Developer
+Comment=Oracle SQL Developer (${UPSTREAMVER})
 X-KDE-StartupNotify=true
 Terminal=false
 Categories=Database;Office;Development;KDE;Qt
