@@ -1,0 +1,43 @@
+sqldeveloper-package (0.5.0) unstable; urgency=low
+
+    Packages built with previous versions are NOT COMPATIBLE with the ones
+    built with this version. The correct update path should be:
+    - Download the same Oracle SQL Developer version as the one installed,
+      from Oracle's download page
+    - Build sqldeveloper-<upstream version>.deb package with
+      make-sqldeveloper-package from version 0.5.0 or newer
+    - Fully uninstall the previous sqldeveloper.deb package (user
+      configurations will not be deleted)
+    - Install sqldeveloper-<upstream version>.deb and, if it was created,
+      libjnidispatch-<upstream version>_<your arch>.deb
+
+    Multiple versions can now coexist, "sqldeveloper.[upstream version]" will
+    invoke a specific version of Oracle SQL Developer while "sqldeveloper"
+    takes advantage of Debian's alternatives system and, when left in auto
+    mode, will always invoke the highest version installed.
+
+    Since SQL Developer v4.1, Oracle has started to include i386 and amd64
+    shared libraries in NetBeans Platform modules. make-sqldeveloper-package
+    is now Multi-Arch compatible and will generate new packages
+    libjnidispatch-<upstream version>_<arch>.deb that will recommend, and be
+    recommended, by sqldeveloper-<upstream version>.deb.
+
+    Oracle CLI for SQL Developer, a non-gui interface for scripting or
+    headless control of Oracle SQL Developer is now accessible. Following the
+    multiple versions coexistance concept, "sdcli.[upstream version]" and
+    "sdcli" will behave as described above.
+
+    Since SQL Developer v4.2, Oracle started to bundle Oracle SQL Developer
+    Command-Line (SQLcl) with Oracle SQL Developer. When available, and as an
+    alternative to the standalone package (see "sqlcl-package"),
+    make-sqldeveloper-package will make it accessible. Since there is a name
+    conflict with content of package "parallel", the upstream binary "sql"
+    will be renamed, and following the above multiple versions coexistance
+    concept, "sql.[upstream version].bundled" will invoke a specific SQLcl
+    version while "sqlcl.bundled" takes advantage of Debian's alternatives
+    system and, when left in auto mode, will always invoke the highest bundled
+    version installed, and "sqlcl" (the recommended invocation) will invoke
+    the highest version installed (either standalone or bundled, in this
+    order).
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Fri, 01 Dec 2017 00:05:00 +0000
