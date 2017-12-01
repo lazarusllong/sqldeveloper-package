@@ -36,14 +36,14 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
     - Rewrote a large portion of `make-sqldeveloper-package` to deal with the additional logic
     - Rearranged the `debian/*` files to support multiple packages
     - Generated packages recommend each other (libraries and _SQL Developer_)
-    - Added a new command line option `-s`|`--skip-libraries` to skip building the shared libraries package(s)
+    - Added a new command line option `-s`\|`--skip-libraries` to skip building the shared libraries package(s)
   - Multiple versions can now coexist, `sqldeveloper.[upstream version]` will invoke a specific version of _Oracle SQL Developer_ while `sqldeveloper` takes advantage of _Debian_'s `alternatives` system and, when left in auto mode, will always invoke the highest version installed
   - Exposed _Oracle CLI for SQL Developer_, a non-gui interface for scripting or headless control of _Oracle SQL Developer_. Following the multiple versions  coexistence concept, `sdcli.[upstream version]` and `sdcli` will behave as described above
   - Since _SQL Developer_ [_v4.2_](http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/sqldev-downloads-42-3802334.html), _Oracle_ started to bundle _Oracle SQL Developer Command-Line_ (**_SQLcl_**) with _Oracle SQL Developer_. When available, and as an alternative to the standalone package (see [`sqlcl-package`](https://lazarusllong.github.io/sqlcl-package)), `make-sqldeveloper-package` will expose it. Since there is a name conflict with content of package [_`parallel`_](https://tracker.debian.org/pkg/parallel), the upstream binary `sql` will be renamed, and following the above multiple versions coexistence concept, `sql.[upstream version].bundled` will invoke a specific _SQLcl_ version while `sqlcl.bundled` takes advantage of _Debian_'s `alternatives` system and, when left in auto mode, will always invoke the highest _bundled_ version installed, and `sqlcl` will invoke the highest version installed (either _standalone_ or _bundled_, in this order)
-  - Added a new command line option `-x`|`--extract-only` to prepare a build tree without building package(s) (this option implies `-k`|`--keep-dir`)
+  - Added a new command line option `-x`\|`--extract-only` to prepare a build tree without building package(s) (this option implies `-k`\|`--keep-dir`)
   - Added descriptive header, detailed progress output and `stdout`/`stderr` selection according to the type of message
-  - Added a new command line option `-q`|`--quiet` to suppress normal output
-  - Fixed the long time broken command line option `-i`|`--install` which was not finding the correct package name
+  - Added a new command line option `-q`\|`--quiet` to suppress normal output
+  - Fixed the long time broken command line option `-i`\|`--install` which was not finding the correct package name
   - Synchronized code between `sqldeveloper-package` and [`sqlcl-package`](https://lazarusllong.github.io/sqlcl-package)
   - Updated `sqldeveloper` package description to reflect [_Oracle_'s site](www.oracle.com/technetwork/developer-tools/sql-developer/overview/i)
   - Fixed some small typos in the machine readable copyright file _License:_ section creation
