@@ -8,7 +8,7 @@ sqldeveloper-package (0.5.0) unstable; urgency=low
     - Added cross-packaging functionality
     - Rewrote a large portion of make-sqldeveloper-package to deal with the
       additional logic
-    - Rearranged the debian/* files to suporte multiple packages
+    - Rearranged the debian/* files to support multiple packages
     - Generated packages recommend each other (libraries and SQL Developer)
     - Added a new command line option "-s|--skip-libraries" to skip building
       the shared libraries package(s)
@@ -18,14 +18,14 @@ sqldeveloper-package (0.5.0) unstable; urgency=low
     mode, will always invoke the highest version installed
   * Exposed Oracle CLI for SQL Developer, a non-gui interface for scripting or
     headless control of Oracle SQL Developer. Following the multiple versions
-    coexistance concept, "sdcli.[upstream version]" and "sdcli" will behave as
+    coexistence concept, "sdcli.[upstream version]" and "sdcli" will behave as
     described above
   * Since SQL Developer v4.2, Oracle started to bundle Oracle SQL Developer
     Command-Line (SQLcl) with Oracle SQL Developer. When available, and as an
     alternative to the standalone package (see "sqlcl-package"),
     make-sqldeveloper-package will expose it. Since there is a name conflict
     with content of package "parallel", the upstream binary "sql" will be
-    renamed, and following the above multiple versions coexistance concept,
+    renamed, and following the above multiple versions coexistence concept,
     "sql.[upstream version].bundled" will invoke a specific SQLcl version
     while "sqlcl.bundled" takes advantage of Debian's alternatives system and,
     when left in auto mode, will always invoke the highest bundled version

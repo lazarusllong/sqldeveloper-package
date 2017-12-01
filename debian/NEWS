@@ -24,7 +24,7 @@ sqldeveloper-package (0.5.0) unstable; urgency=low
 
     Oracle CLI for SQL Developer, a non-gui interface for scripting or
     headless control of Oracle SQL Developer is now accessible. Following the
-    multiple versions coexistance concept, "sdcli.[upstream version]" and
+    multiple versions coexistence concept, "sdcli.[upstream version]" and
     "sdcli" will behave as described above.
 
     Since SQL Developer v4.2, Oracle started to bundle Oracle SQL Developer
@@ -32,7 +32,7 @@ sqldeveloper-package (0.5.0) unstable; urgency=low
     alternative to the standalone package (see "sqlcl-package"),
     make-sqldeveloper-package will make it accessible. Since there is a name
     conflict with content of package "parallel", the upstream binary "sql"
-    will be renamed, and following the above multiple versions coexistance
+    will be renamed, and following the above multiple versions coexistence
     concept, "sql.[upstream version].bundled" will invoke a specific SQLcl
     version while "sqlcl.bundled" takes advantage of Debian's alternatives
     system and, when left in auto mode, will always invoke the highest bundled
