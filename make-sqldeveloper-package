@@ -3,7 +3,7 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2017-12-01)
+# (2017-12-05)
 
 # Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 
@@ -2520,7 +2520,7 @@ EOF
 	${CAT} <<EOF
 .\\" ${PROGNAME}.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-01)
+.\\" (2017-12-05)
 .\\"
 .\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2542,7 +2542,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER.${UPSTREAMVER} 1 2017-12-01 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER.${UPSTREAMVER} 1 2017-12-05 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 ${PROGNAME}.${UPSTREAMVER} \\- Oracle SQL Developer
@@ -2631,7 +2631,7 @@ EOF
 		${CAT} <<EOF
 .\\" sdcli.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-01)
+.\\" (2017-12-05)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2653,7 +2653,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SDCLI.${UPSTREAMVER} 1 2017-12-01 Oracle "Oracle CLI for SQL Developer"
+.TH SDCLI.${UPSTREAMVER} 1 2017-12-05 Oracle "Oracle CLI for SQL Developer"
 .\\"
 .SH NAME
 sdcli.${UPSTREAMVER} \\- Oracle CLI for SQL Developer
@@ -2803,7 +2803,7 @@ EOF
 		${CAT} <<EOF
 .\\" sql.${UPSTREAMVER}.bundled.1
 .\\"
-.\\" (2017-12-01)
+.\\" (2017-12-05)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2825,7 +2825,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer Command-Line
 .\\"
 .\\"
-.TH SQL.${UPSTREAMVER}.BUNDLED 1 2017-12-01 Oracle "Oracle SQL Developer Command-Line"
+.TH SQL.${UPSTREAMVER}.BUNDLED 1 2017-12-05 Oracle "Oracle SQL Developer Command-Line"
 .\\"
 .SH NAME
 sql.${UPSTREAMVER}.bundled \\- Oracle SQL Developer Command-Line
@@ -2981,7 +2981,7 @@ set -e
 
 # ${PROGNAME}.${UPSTREAMVER}
 
-# (2017-12-01)
+# (2017-12-05)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -3113,11 +3113,26 @@ func_checkjdkpath() {
 func_version
 func_parseopts \${@}
 func_checkjdkpath
+EOF
+	) >"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+
+	if [ ${SKIPLIB} -eq 0 -a ${CSVLIBS} -eq 1 -a ${LIBJNIDISPATCH} -eq 1 ] ; then
+		local ARCH=${HOSTARCH}
+
+		if [ ${HOSTARCH} = "amd64" ] ; then
+			ARCH="x86_64"
+		fi
+
+		printf "export LD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH}\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+	fi
+
+	(
+	${CAT} <<EOF
 \${RUN} \${@}
 
 # EOF sqldeveloper
 EOF
-	) >"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash" && ${CHMOD} ${CHMOD_OPTS_FUNC_DEB} "${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+	) >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash" && ${CHMOD} ${CHMOD_OPTS_FUNC_DEB} "${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
 
 	if [ ${SILENT} -eq 0 ] ; then
 		printf "done!\n"

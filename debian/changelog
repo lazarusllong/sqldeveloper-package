@@ -50,7 +50,7 @@ sqldeveloper-package (0.5.0) unstable; urgency=low
   * Tested against v4.x and v17.x release families of SQL Developer
   * Bumped version to reflect functionality
 
- -- Lazarus Long <lazarus.long@sapo.pt>  Fri, 01 Dec 2017 00:05:00 +0000
+ -- Lazarus Long <lazarus.long@sapo.pt>  Tue, 05 Dec 2017 00:05:00 +0000
 
 sqldeveloper-package (0.4.4) unstable; urgency=low
 
