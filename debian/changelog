@@ -1,3 +1,10 @@
+sqldeveloper-package (0.5.1) unstable; urgency=low
+
+  * Verified compliancy with Standards-Version: 4.1.2
+  * Bumped version to reflect functionality
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Fri, 15 Dec 2017 00:05:01 +0000
+
 sqldeveloper-package (0.5.0) unstable; urgency=low
 
   * Since SQL Developer v4.1, Oracle has started to include i386 and amd64
