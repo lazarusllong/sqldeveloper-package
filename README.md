@@ -28,7 +28,7 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
-##### [Version 0.5.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.0):
+##### [Version 0.5.1](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.1):
 - **changelog:**
   - Verified compliancy with _Standards-Version_: **4.1.2**
   - Bumped version to reflect functionality
