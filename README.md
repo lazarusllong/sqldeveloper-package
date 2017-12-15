@@ -30,6 +30,16 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ##### [Version 0.5.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.0):
 - **changelog:**
+  - Verified compliancy with _Standards-Version_: **4.1.2**
+  - Bumped version to reflect functionality
+- **downloads:**
+  - [**`sqldeveloper-package_0.5.1_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.1/sqldeveloper-package_0.5.1_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.5.1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.1/sqldeveloper-package_0.5.1.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.5.1.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.1/sqldeveloper-package_0.5.1.tar.xz) (_source code archive_)
+  - [`v0.5.0_v0.5.1.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.1/v0.5.0_v0.5.1.debdiff) (_Debian diff from previous version_)
+
+##### [Version 0.5.0](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.0):
+- **changelog:**
   - Since _SQL Developer_ [_v4.1_](http://www.oracle.com/technetwork/developer-tools/sql-developer/downloads/sqldev-downloads-41-2592723.html), _Oracle_ has started to include `i386` and `amd64` shared libraries in [_NetBeans Platform_](http://www.netbeans.org) modules. Due to this, converted `make-sqldeveloper-package` to both generate multiple packages and to be _Multi-Arch_ compatible:
     - Added `Multi-Arch` dependencies
     - Added cross-packaging functionality
