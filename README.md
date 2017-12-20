@@ -193,9 +193,9 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
   - Non-maintainer upload.
   - Use `fromdos` in place of gone `dos2unix` for CRLF conversion management. Remove no longer needed alternative dep on `sysutils`, which is gone too. Patch from Michael Musenbrock. (Closes: [**#568982**](http://bugs.debian.org/cgi-bin/bugreport.cgi?bug=568982))
 - **downloads:**
-  - [**`sqldeveloper-package_0.2.3+nmu1_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1_all.deb) (_binary package_)
-  - [`sqldeveloper-package_0.2.3+nmu1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.dsc) (_source description file_)
-  - [`sqldeveloper-package_0.2.3+nmu1.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3+nmu1/sqldeveloper-package_0.2.3+nmu1.tar.gz) (_source code archive_)
+  - [**`sqldeveloper-package_0.2.3+nmu1_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3%2Bnmu1/sqldeveloper-package_0.2.3.nmu1_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.2.3+nmu1.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3%28nmu1/sqldeveloper-package_0.2.3.nmu1.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.2.3+nmu1.tar.gz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.2.3%28nmu1/sqldeveloper-package_0.2.3.nmu1.tar.gz) (_source code archive_)
 
 ##### [Version 0.2.3](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.2.3):
 - **changelog:**
