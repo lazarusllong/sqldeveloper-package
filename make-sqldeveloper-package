@@ -3,7 +3,7 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2017-12-15)
+# (2017-12-26)
 
 # Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 
@@ -34,7 +34,7 @@ if [ ${DEBUG:=0} -ne 0 ] ; then
 	set -x
 fi
 
-VERSION="0.5.1"
+VERSION="0.5.2"
 DESC="Debian package builder and installer for Oracle SQL Developer"
 AUTHOR="Lazarus Long"
 COPYRIGHT="2009-2017"
@@ -2521,7 +2521,7 @@ EOF
 	${CAT} <<EOF
 .\\" ${PROGNAME}.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-15)
+.\\" (2017-12-26)
 .\\"
 .\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2543,7 +2543,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER.${UPSTREAMVER} 1 2017-12-15 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER.${UPSTREAMVER} 1 2017-12-26 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 ${PROGNAME}.${UPSTREAMVER} \\- Oracle SQL Developer
@@ -2632,7 +2632,7 @@ EOF
 		${CAT} <<EOF
 .\\" sdcli.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-15)
+.\\" (2017-12-26)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2654,7 +2654,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SDCLI.${UPSTREAMVER} 1 2017-12-15 Oracle "Oracle CLI for SQL Developer"
+.TH SDCLI.${UPSTREAMVER} 1 2017-12-26 Oracle "Oracle CLI for SQL Developer"
 .\\"
 .SH NAME
 sdcli.${UPSTREAMVER} \\- Oracle CLI for SQL Developer
@@ -2804,7 +2804,7 @@ EOF
 		${CAT} <<EOF
 .\\" sql.${UPSTREAMVER}.bundled.1
 .\\"
-.\\" (2017-12-15)
+.\\" (2017-12-26)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2826,7 +2826,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer Command-Line
 .\\"
 .\\"
-.TH SQL.${UPSTREAMVER}.BUNDLED 1 2017-12-15 Oracle "Oracle SQL Developer Command-Line"
+.TH SQL.${UPSTREAMVER}.BUNDLED 1 2017-12-26 Oracle "Oracle SQL Developer Command-Line"
 .\\"
 .SH NAME
 sql.${UPSTREAMVER}.bundled \\- Oracle SQL Developer Command-Line
@@ -2982,7 +2982,7 @@ set -e
 
 # ${PROGNAME}.${UPSTREAMVER}
 
-# (2017-12-15)
+# (2017-12-26)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -3052,28 +3052,36 @@ func_version() {
 	VERSIONREV="\${VERSIONREV%%.*}"
 }
 
-func_help() {
-	\${@}
-	printf "%b\\n" "The following commands must appear by themselves:\\n-help                  Show this screen\\n-version               Display SQL Developer version"
+func_setenv() {
+	local WORKPATH="\${HOME}/.instantclient:\${HOME}/.sqldeveloper:/etc/instantclient:"
+EOF
+	) >"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+
+	if [ ${SKIPLIB} -eq 0 -a ${CSVLIBS} -eq 1 -a ${LIBJNIDISPATCH} -eq 1 ] ; then
+		local ARCH=${HOSTARCH}
+
+		if [ ${HOSTARCH} = "amd64" ] ; then
+			ARCH="x86_64"
+		fi
+
+		printf "\tLD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+	else
+		printf "\tLD_LIBRARY_PATH=\${LD_LIBRARY_PATH%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+	fi
+
+	(
+	${CAT} <<EOF
+	ORACLE_PATH="\${WORKPATH}\${ORACLE_PATH%:}:"
+	SQLPATH="\${WORKPATH}\${SQLPATH%:}:"
+
+	export LD_LIBRARY_PATH ORACLE_PATH SQLPATH
+	
+	[ \${#ORACLE_HOME} -gt 0 ] && export ORACLE_HOME
+
+	[ \${#TNS_ADMIN} -gt 0 ] && export TNS_ADMIN
+
+	return 0
 }
-
-func_parseopts() {
-	while [ \${#} -gt 0 ] ; do
-		case "\$(printf "%s" \${1} |\${TR} \${TR_OPTS})" in
-			-help|--help)
-				func_help \${RUN} \${1}
-				exit 0
-			;;
-			-version|--version)
-				printf "\\nOracle SQL Developer: Release %s\\n" "\${VERSION}"
-				exit 0
-			;;
-		esac
-
-		shift
-	done
-}
-
 
 func_checkjdkpath() {
 		CUT_OPTS_FUNC_CHKJDK="-f 2-"
@@ -3111,25 +3119,37 @@ func_checkjdkpath() {
 	fi
 }
 
-func_version
-func_parseopts \${@}
-func_checkjdkpath
-EOF
-	) >"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+func_help() {
+	\${@}
+	printf "%b\\n" "The following commands must appear by themselves:\\n-help                  Show this screen\\n-version               Display SQL Developer version"
+}
 
-	if [ ${SKIPLIB} -eq 0 -a ${CSVLIBS} -eq 1 -a ${LIBJNIDISPATCH} -eq 1 ] ; then
-		local ARCH=${HOSTARCH}
+func_parseopts() {
+	while [ \${#} -gt 0 ] ; do
+		case "\$(printf "%s" \${1} |\${TR} \${TR_OPTS})" in
+			-help|--help)
+				func_help \${RUN} \${1}
+				exit 0
+			;;
+			-version|--version)
+				printf "\\nOracle SQL Developer: Release %s\\n" "\${VERSION}"
+				exit 0
+			;;
+		esac
 
-		if [ ${HOSTARCH} = "amd64" ] ; then
-			ARCH="x86_64"
-		fi
+		shift
+	done
+}
 
-		printf "export LD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH}\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
-	fi
+func_main() {
+	func_version
+	func_setenv
+	func_checkjdkpath
+	func_parseopts "\${@}"
+	\${RUN} "\${@}"
+}
 
-	(
-	${CAT} <<EOF
-\${RUN} \${@}
+func_main "\${@}"
 
 # EOF sqldeveloper
 EOF
