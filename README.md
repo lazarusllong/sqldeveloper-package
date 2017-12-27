@@ -28,6 +28,16 @@ After installing a **compatible** _JDK_ simply launch _SQL Developer_ through th
 
 ### **Version History**
 
+##### [Version 0.5.2](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.2):
+- **changelog:**
+  - Fixed wrapper script command line options invocation
+  - Added environment variables `ORACLE_PATH` and `SQLPATH` initialization to wrapper script
+- **downloads:**
+  - [**`sqldeveloper-package_0.5.2_all.deb`**](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.2/sqldeveloper-package_0.5.2_all.deb) (_binary package_)
+  - [`sqldeveloper-package_0.5.2.dsc`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.2/sqldeveloper-package_0.5.2.dsc) (_source description file_)
+  - [`sqldeveloper-package_0.5.2.tar.xz`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.2/sqldeveloper-package_0.5.2.tar.xz) (_source code archive_)
+  - [`v0.5.0_v0.5.2.debdiff`](https://github.com/lazarusllong/sqldeveloper-package/releases/download/0.5.2/v0.5.1_v0.5.2.debdiff) (_Debian diff from previous version_)
+
 ##### [Version 0.5.1](https://github.com/lazarusllong/sqldeveloper-package/releases/tag/0.5.1):
 - **changelog:**
   - Verified compliancy with _Standards-Version_: **4.1.2**
