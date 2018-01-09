@@ -3,7 +3,7 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2017-12-26)
+# (2018-01-09)
 
 # Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 
@@ -34,7 +34,7 @@ if [ ${DEBUG:=0} -ne 0 ] ; then
 	set -x
 fi
 
-VERSION="0.5.2"
+VERSION="0.5.3"
 DESC="Debian package builder and installer for Oracle SQL Developer"
 AUTHOR="Lazarus Long"
 COPYRIGHT="2009-2017"
@@ -88,7 +88,7 @@ SED_OPTS="-e"
 
 DEBFULLNAME=${DEBFULLNAME:=""}
 DEBEMAIL=${DEBEMAIL:="${USER}@$(${HOSTNAME})"}
-STANDARDS="4.1.2"
+STANDARDS="4.1.3"
 
 USRDIR="usr"
 INSTDIR="${USRDIR}/share"
@@ -965,7 +965,7 @@ EOF
 		printf "\tdebian/compat ... "
 	fi
 
-	printf "10\n" >"${DEBIAN_WORKDIR}/compat"
+	printf "11\n" >"${DEBIAN_WORKDIR}/compat"
 
 	if [ ${SILENT} -eq 0 ] ; then
 		printf "done!\n"
@@ -2521,7 +2521,7 @@ EOF
 	${CAT} <<EOF
 .\\" ${PROGNAME}.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-26)
+.\\" (2018-01-09)
 .\\"
 .\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2543,7 +2543,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER.${UPSTREAMVER} 1 2017-12-26 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER.${UPSTREAMVER} 1 2018-01-09 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 ${PROGNAME}.${UPSTREAMVER} \\- Oracle SQL Developer
@@ -2632,7 +2632,7 @@ EOF
 		${CAT} <<EOF
 .\\" sdcli.${UPSTREAMVER}.1
 .\\"
-.\\" (2017-12-26)
+.\\" (2018-01-09)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2654,7 +2654,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SDCLI.${UPSTREAMVER} 1 2017-12-26 Oracle "Oracle CLI for SQL Developer"
+.TH SDCLI.${UPSTREAMVER} 1 2018-01-09 Oracle "Oracle CLI for SQL Developer"
 .\\"
 .SH NAME
 sdcli.${UPSTREAMVER} \\- Oracle CLI for SQL Developer
@@ -2804,7 +2804,7 @@ EOF
 		${CAT} <<EOF
 .\\" sql.${UPSTREAMVER}.bundled.1
 .\\"
-.\\" (2017-12-26)
+.\\" (2018-01-09)
 .\\"
 .\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
@@ -2826,7 +2826,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer Command-Line
 .\\"
 .\\"
-.TH SQL.${UPSTREAMVER}.BUNDLED 1 2017-12-26 Oracle "Oracle SQL Developer Command-Line"
+.TH SQL.${UPSTREAMVER}.BUNDLED 1 2018-01-09 Oracle "Oracle SQL Developer Command-Line"
 .\\"
 .SH NAME
 sql.${UPSTREAMVER}.bundled \\- Oracle SQL Developer Command-Line
@@ -2982,7 +2982,7 @@ set -e
 
 # ${PROGNAME}.${UPSTREAMVER}
 
-# (2017-12-26)
+# (2018-01-09)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -3064,9 +3064,9 @@ EOF
 			ARCH="x86_64"
 		fi
 
-		printf "\tLD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+		printf "\tLD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH%%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
 	else
-		printf "\tLD_LIBRARY_PATH=\${LD_LIBRARY_PATH%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+		printf "\tLD_LIBRARY_PATH=\${LD_LIBRARY_PATH%%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
 	fi
 
 	(
@@ -3245,64 +3245,37 @@ func_builddeb() {
 	fi
 
 	if [ ${SKIPLIB} -eq 0 -a ${CSVLIBS} -eq 1 -a ${LIBJNIDISPATCH} -eq 1 ] ; then
-		if [ ${SILENT} -eq 0 ] ; then
-			printf "\t%s ... " "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
-		fi
-
-		local DEBUILD_OPTS_HOSTARCH="${DEBUILD_OPTS} -- clean,binary-arch"
-		local CP_OPTS_FUNC_BUILD="-a"
-		local RM_OPTS_FUNC_BUILD="-rf"
-
-		if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${HOSTARCH}" ] ; then
-			${CP} ${CP_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${HOSTARCH}" "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
-		fi
-
-		${DEBUILD} ${DEBUILD_OPTS_HOSTARCH} >/dev/null 2>&1
-		RET=${?}
-
-		if [ ${RET} -eq 0 ] ; then
+		if [ "${HOSTARCH}" = "amd64" -o "${HOSTARCH}" = "i386" ] ; then
 			if [ ${SILENT} -eq 0 ] ; then
-				printf "done!\n"
-			fi
-		else
-			if [ ${SILENT} -eq 0 ] ; then
-				printf "FAILED!\n"
+				printf "\t%s ... " "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
 			fi
 
-			exit ${RET}
-		fi
+			local DEBUILD_OPTS_HOSTARCH="${DEBUILD_OPTS} -- clean,binary-arch"
+			local CP_OPTS_FUNC_BUILD="-a"
+			local RM_OPTS_FUNC_BUILD="-rf"
 
-		if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides" ] ; then
-			${RM} ${RM_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
-		fi
-
-		if [ ${SILENT} -eq 0 ] ; then
-			printf "\t%s ... " "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${LIBALTARCH}.deb"
-		fi
-
-		local DEBUILD_OPTS_LIBALTARCH="${DEBUILD_OPTS} --host-arch ${LIBALTARCH} -- clean,binary-arch"
-
-		if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${LIBALTARCH}" ] ; then
-			${CP} ${CP_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${LIBALTARCH}" "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
-		fi
-
-		${DEBUILD} ${DEBUILD_OPTS_LIBALTARCH} >/dev/null 2>&1
-		RET=${?}
-
-		if [ ${RET} -eq 0 ] ; then
-			if [ ${SILENT} -eq 0 ] ; then
-				printf "done!\n"
-			fi
-		else
-			if [ ${SILENT} -eq 0 ] ; then
-				printf "FAILED!\n"
+			if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${HOSTARCH}" ] ; then
+				${CP} ${CP_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides.${HOSTARCH}" "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
 			fi
 
-			return ${RET}
-		fi
+			${DEBUILD} ${DEBUILD_OPTS_HOSTARCH} >/dev/null 2>&1
+			RET=${?}
 
-		if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides" ] ; then
-			${RM} ${RM_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
+			if [ ${RET} -eq 0 ] ; then
+				if [ ${SILENT} -eq 0 ] ; then
+					printf "done!\n"
+				fi
+			else
+				if [ ${SILENT} -eq 0 ] ; then
+					printf "FAILED!\n"
+				fi
+
+				exit ${RET}
+			fi
+
+			if [ -f "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides" ] ; then
+				${RM} ${RM_OPTS_FUNC_BUILD} "${1}/debian/${JNILIBNAME}-${UPSTREAMVER}.lintian-overrides"
+			fi
 		fi
 	fi
 
@@ -3318,11 +3291,13 @@ func_builddeb() {
 		${DPKG} ${DPKG_OPTS_FUNC_BUILD} "${CURDIR}/${PROGNAME-${UPSTREAMVER}}_${UPSTREAMVER}+${VERSION}-${LOCALVER}_all.deb"
 
 		if [ ${SKIPLIB} -eq 0 -a ${CSVLIBS} -eq 1 -a ${LIBJNIDISPATCH} -eq 1 ] ; then
-			if [ ${SILENT} -eq 0 ] ; then
-				printf "\t%s\n" "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
-			fi
+			if [ -f "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb" ] ; then
+				if [ ${SILENT} -eq 0 ] ; then
+					printf "\t%s\n" "${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
+				fi
 
-			${DPKG} ${DPKG_OPTS_FUNC_BUILD} "${CURDIR}/${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
+				${DPKG} ${DPKG_OPTS_FUNC_BUILD} "${CURDIR}/${JNILIBNAME}-${UPSTREAMVER}_${JNISOVERSION}+${VERSION}-${LOCALVER}_${HOSTARCH}.deb"
+			fi
 		fi
 	fi
 
