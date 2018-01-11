@@ -1,5 +1,5 @@
 Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
+Copyright: Copyright © 2009-2018 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 Upstream-Name: Oracle SQL Developer Debian package builder
 Upstream-Contact: Lazarus Long <lazarus.long@sapo.pt>
@@ -13,11 +13,11 @@ Comment:
  Sun, 01 Feb 2009 04:41:00 +0000.
 
 Files: *
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
+Copyright: Copyright © 2009-2018 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 Files: debian/*
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
+Copyright: Copyright © 2009-2018 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 License: GPL-3+

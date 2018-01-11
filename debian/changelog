@@ -1,4 +1,10 @@
-sqldeveloper-package (0.5.3) unstable; urgency=high
+sqldeveloper-package (0.5.4) unstable; urgency=low
+
+  * Updated wrapper script copyright to include 2018
+
+ -- Lazarus Long <lazarus.long@sapo.pt>  Thu, 11 Jan 2018 00:05:04 +0000
+
+sqldeveloper-package (0.5.3) unstable; urgency=medium
 
   * Fixed LD_LIBRARY_PATH initialization, which was rendering the wrapper
     script unusable, thus breaking the package

@@ -3,9 +3,9 @@ set -e
 
 # make-sqldeveloper-package
 
-# (2018-01-09)
+# (2018-01-11)
 
-# Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
+# Copyright © 2009-2018 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -34,10 +34,10 @@ if [ ${DEBUG:=0} -ne 0 ] ; then
 	set -x
 fi
 
-VERSION="0.5.3"
+VERSION="0.5.4"
 DESC="Debian package builder and installer for Oracle SQL Developer"
 AUTHOR="Lazarus Long"
-COPYRIGHT="2009-2017"
+COPYRIGHT="2009-2018"
 
 ITP=515233
 PROGNAME="sqldeveloper"
@@ -1119,7 +1119,7 @@ Copyright: Copyright © 2009-2017 Oracle USA, Inc.
 License: OracleSQLDeveloper
 
 Files: debian/*
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
+Copyright: Copyright © 2009-2018 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 License: OracleSQLDeveloper
@@ -1577,7 +1577,7 @@ Copyright: Copyright © 1997-2010 Oracle and/or its affiliates
 License: CDDL-1.0 or GPL-2 with Classpath exception
 
 Files: debian/*
-Copyright: Copyright © 2009-2017 Lazarus Long <lazarus.long@sapo.pt>
+Copyright: Copyright © 2009-2018 Lazarus Long <lazarus.long@sapo.pt>
 License: GPL-3+
 
 License: CDDL-1.0
@@ -2521,9 +2521,9 @@ EOF
 	${CAT} <<EOF
 .\\" ${PROGNAME}.${UPSTREAMVER}.1
 .\\"
-.\\" (2018-01-09)
+.\\" (2018-01-11)
 .\\"
-.\\" Copyright © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
+.\\" Copyright © 2009-2018 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
 .\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\"
 .\\"  This program is free software: you can redistribute it and/or modify  .\\"
@@ -2543,7 +2543,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SQLDEVELOPER.${UPSTREAMVER} 1 2018-01-09 Oracle "Oracle SQL Developer"
+.TH SQLDEVELOPER.${UPSTREAMVER} 1 2018-01-11 Oracle "Oracle SQL Developer"
 .\\"
 .SH NAME
 ${PROGNAME}.${UPSTREAMVER} \\- Oracle SQL Developer
@@ -2632,9 +2632,9 @@ EOF
 		${CAT} <<EOF
 .\\" sdcli.${UPSTREAMVER}.1
 .\\"
-.\\" (2018-01-09)
+.\\" (2018-01-11)
 .\\"
-.\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
+.\\" Copyright © 2017-2018 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
 .\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\"
 .\\"  This program is free software: you can redistribute it and/or modify  .\\"
@@ -2654,7 +2654,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer
 .\\"
 .\\"
-.TH SDCLI.${UPSTREAMVER} 1 2018-01-09 Oracle "Oracle CLI for SQL Developer"
+.TH SDCLI.${UPSTREAMVER} 1 2018-01-11 Oracle "Oracle CLI for SQL Developer"
 .\\"
 .SH NAME
 sdcli.${UPSTREAMVER} \\- Oracle CLI for SQL Developer
@@ -2804,9 +2804,9 @@ EOF
 		${CAT} <<EOF
 .\\" sql.${UPSTREAMVER}.bundled.1
 .\\"
-.\\" (2018-01-09)
+.\\" (2018-01-11)
 .\\"
-.\\" Copyright © 2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
+.\\" Copyright © 2017-2018 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 .\\"
 .\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\".\\"
 .\\"  This program is free software: you can redistribute it and/or modify  .\\"
@@ -2826,7 +2826,7 @@ EOF
 .\\" Debian package builder and installer for Oracle SQL Developer Command-Line
 .\\"
 .\\"
-.TH SQL.${UPSTREAMVER}.BUNDLED 1 2018-01-09 Oracle "Oracle SQL Developer Command-Line"
+.TH SQL.${UPSTREAMVER}.BUNDLED 1 2018-01-11 Oracle "Oracle SQL Developer Command-Line"
 .\\"
 .SH NAME
 sql.${UPSTREAMVER}.bundled \\- Oracle SQL Developer Command-Line
@@ -2982,7 +2982,7 @@ set -e
 
 # ${PROGNAME}.${UPSTREAMVER}
 
-# (2018-01-09)
+# (2018-01-11)
 
 ##########################################################################
 #  This program is free software: you can redistribute it and/or modify  #
@@ -3001,7 +3001,7 @@ set -e
 
 # Launcher for Oracle SQL Developer
 
-# Copyright: © 2009-2017 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
+# Copyright: © 2009-2018 Lazarus Long <lazarus (dot) long (at) sapo (dot) pt>
 
 PATH="/usr/bin:/bin:/${INSTDIR}/${PROGNAME}/${UPSTREAMVER}:/${INSTDIR}/${PROGNAME}/${UPSTREAMVER}/${PROGNAME}/bin:/${INSTDIR}/${PROGNAME}/${UPSTREAMVER}/jdev/bin"
 
