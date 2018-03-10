@@ -644,7 +644,7 @@ func_reorganize() {
 		local LIBWORKDIR="${1}/${LIBSDIR}"
 
 		for Library in $(${FIND} "${OPTDIR}" ! \( -type d -o -name "*.jar" \) |${XARGS} ${XARGS_OPTS} ${FILE} ${FILE_OPTS} |${GREP} ${GREP_OPTS} "ELF (32|64)-bit LSB shared object" |${CUT} ${CUT_OPTS_FN}) ; do
-			local ARCH="$(${OBJDUMP} ${OBJDUMP_OPTS_FUNC_REORG} ${Library} |${GREP} ${GREP_OPTS} "file format" |${SED} ${SED_OPTS} 's/^.*file format //' |${CUT} ${CUT_OPTS_LIB} |${TR} ${TR_OPTS} - _)"
+			local ARCH="$(LC_ALL=C ${OBJDUMP} ${OBJDUMP_OPTS_FUNC_REORG} ${Library} |${GREP} ${GREP_OPTS} "file format" |${SED} ${SED_OPTS} 's/^.*file format //' |${CUT} ${CUT_OPTS_LIB} |${TR} ${TR_OPTS} - _)"
 			local SONAME="$(${OBJDUMP} ${OBJDUMP_OPTS_FUNC_REORG} ${Library} |${GREP} ${GREP_OPTS} "SONAME" |${SED} ${SED_OPTS} 's/^[[:space:]]*SONAME[[:space:]]*//')"
 			SONAME=${SONAME##*/}
 			local SERIAL="$(printf ${Library##*/} |${SED} ${SED_OPTS} 's/\.so*$//' |${CUT} ${CUT_OPTS_LIB})"
