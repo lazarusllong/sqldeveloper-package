@@ -1,3 +1,9 @@
+sqldeveloper-package (0.5.5) UNRELEASED; urgency=medium
+
+  * Drop custom source compression.
+
+ -- Debian Janitor <janitor@jelmer.uk>  Tue, 05 May 2020 09:22:59 +0000
+
 sqldeveloper-package (0.5.4) unstable; urgency=low
 
   * Updated wrapper script copyright to include 2018
