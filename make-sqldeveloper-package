@@ -3066,7 +3066,7 @@ EOF
 
 		printf "\tLD_LIBRARY_PATH=\"${LIBSDIR}/${ARCH}-linux-gnu/${PROGNAME}/${UPSTREAMVER}:\${LD_LIBRARY_PATH%%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
 	else
-		printf "\tLD_LIBRARY_PATH=\${LD_LIBRARY_PATH%%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
+		printf "\tLD_LIBRARY_PATH=\"${LD_LIBRARY_PATH%%:}:\"\n" >>"${DEBIAN_WORKDIR}/${PROGNAME}.${UPSTREAMVER}.bash"
 	fi
 
 	(
