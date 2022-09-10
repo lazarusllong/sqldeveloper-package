@@ -1,6 +1,7 @@
 sqldeveloper-package (0.5.5) UNRELEASED; urgency=medium
 
   * Drop custom source compression.
+  * Bump debhelper from old 11 to 13.
 
  -- Debian Janitor <janitor@jelmer.uk>  Sat, 10 Sep 2022 06:51:56 -0000
 
